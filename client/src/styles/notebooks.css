@@ -1,0 +1,87 @@
+#notebook-tabs-container {
+    display: flex;
+    justify-content: left;
+    width: 100%;
+}
+
+#notebook-tabs-row {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.notebook-tab {
+    display: flex;
+    flex-wrap:nowrap;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    width: 20rem;
+    /* max-width:max-content; */
+
+    /* background-color: #F1D592; */
+    background-image: linear-gradient(to bottom, #F1D592, #EBC465);
+    color: black;
+    border-radius: 10px 20px 0 0;
+    cursor: pointer;
+}
+
+.notebook-tab :hover {
+    color: white;
+}
+
+.selected-notebook-tab {
+    background-image: linear-gradient(to top, #F1D592, #EBC465);
+}
+
+/* AddNotebookTab */
+
+.new-tab {
+    display: flex;
+    justify-content: right;
+    background-image: linear-gradient(to bottom, #F1D592, #EBC465);
+    color: black;
+    border-radius: 10px 20px 0 0;
+    cursor: pointer;
+}
+
+#add-notebook-button {
+    display: flex;
+    width: max-content;
+
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
+    border: none;
+    border-radius: 10px 20px 0 0;
+    cursor: pointer;
+}
+
+#add-notebook-button svg {
+    width: 1rem;
+    aspect-ratio: 1;
+}
+
+#new-notebook-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .2rem;
+}
+
+#new-notebook-form input {
+    width: 10rem;
+    height: 1.5rem;
+    border: none;
+    padding: .2rem;
+    margin: .2rem;
+}
+
+#submit-new-notebook {
+    background-color: rgba(0, 0, 0, 0);
+    color: black;
+    border: none;
+    border-radius: 10px 20px 0 0;
+    cursor: pointer;
+    padding: .2rem;
+}
