@@ -2,7 +2,6 @@ import React, { useState } from "react";
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
 import { createNote } from '../api/noteApi.js';
 
 interface NoteFormProps {
@@ -15,7 +14,7 @@ const NoteForm = (props: NoteFormProps) => {
     const [newNote, setNewNote] = useState({
         notebook_id: props.notebookId,
         content: "",
-        importance: ""
+        importance: "Main"
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

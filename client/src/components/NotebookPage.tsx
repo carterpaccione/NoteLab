@@ -9,10 +9,8 @@ import Modal from 'react-bootstrap/Modal';
 import "../styles/page.css";
 
 import { Notebook, Note } from "../models/dataModels.js";
-import { fetchNotebook, deleteNotebook } from "../api/notebookAPI";
-import MainNote from "./MainNote";
-import Highlight from "./Highlight.js";
-import Sticky from "./Sticky.js";
+import { deleteNotebook, fetchNotebook } from "../api/notebookAPI";
+import NoteComponent from "./NoteComponent";
 import NoteForm from "./NoteForm";
 
 export interface PageProps {
@@ -20,21 +18,26 @@ export interface PageProps {
     handleRefetch: () => void;
 }
 
-const Page = (props: PageProps) => {
-    const [notebook, setNotebook] = useState<Notebook>({
-        id: props.notebookId,
-        title: "",
-        user_id: 0,
-        created_at: "",
-        notes: []
-    });
+const NotebookPage = (props: PageProps) => {
+    const [notebookData, setNotebookData] = useState<Notebook | null>(null);
+
     const [mainNotes, setMainNotes] = useState<Note[]>([]);
     const [stickyNotes, setStickyNotes] = useState<Note[]>([]);
     const [highlightNotes, setHighlightNotes] = useState<Note[]>([]);
-    const [error, setError] = useState<string | null>(null);
+    // const [error, setError] = useState<string | null>(null);
     const [showModal, setShowModal] = useState<boolean>(false);
     const handleModalClose = () => setShowModal(false);
     const handleModalShow = () => setShowModal(true);
+
+    const fetchNotebookData = useCallback(async () => {
+        try {
+            const data = await fetchNotebook(props.notebookId);
+            setNotebookData(data.data);
+        }
+        catch {
+            console.error("Error fetching notebook data");
+        }
+    }, [props.notebookId]);
 
     const sortNotes = (notes: Note[]) => {
         const mainNotes: Note[] = [];
@@ -53,35 +56,25 @@ const Page = (props: PageProps) => {
         setMainNotes(mainNotes);
         setStickyNotes(stickyNotes);
         setHighlightNotes(highlightNotes);
-    }
-
-    const fetchNotebookData = useCallback(async () => {
-        try {
-            const notebookData = await fetchNotebook(props.notebookId);
-            setNotebook(notebookData.data.notebook);
-            sortNotes(notebookData.data.notebook.notes)
-        } catch {
-            setError("Error fetching notebook data");
-        }
-    }, [props.notebookId]);
+    };
 
     const handleDeleteButton = async () => {
-        try {
-            const data = await deleteNotebook(notebook.id);
-            console.log(data);
-            fetchNotebookData();
-            props.handleRefetch();
-        } catch {
-            console.error("Error deleting notebook: ");
-        }
+        await deleteNotebook(props.notebookId);
+        props.handleRefetch();
     };
 
     useEffect(() => {
         fetchNotebookData();
-    }, [props.notebookId, fetchNotebookData]);
+    }, [fetchNotebookData]);
 
-    if (error) {
-        return <p>{error}</p>;
+    useEffect(() => {
+        if (notebookData) {
+            sortNotes(notebookData.Notes);
+        }
+    }, [notebookData]);
+
+    if (!notebookData || notebookData == null) {
+        return <p>No notebook data</p>;
     }
 
     return (
@@ -104,13 +97,13 @@ const Page = (props: PageProps) => {
             </Row>
             <Row>
                 <Col>
-                    {highlightNotes.map(note => <Highlight key={note.id} note={note} />)}
+                    {highlightNotes.map(note => <NoteComponent key={note.id} note={note} handleRefetch={fetchNotebookData} />)}
                 </Col>
                 <Col xs={6}>
-                    {mainNotes.map(note => <MainNote key={note.id} note={note} />)}
+                    {mainNotes.map(note => <NoteComponent key={note.id} note={note} handleRefetch={fetchNotebookData} />)}
                 </Col>
                 <Col>
-                    {stickyNotes.map(note => <Sticky key={note.id} note={note} />)}
+                    {stickyNotes.map(note => <NoteComponent key={note.id} note={note} handleRefetch={fetchNotebookData} />)}
                 </Col>
             </Row>
             <Modal show={showModal} onHide={handleModalClose}>
@@ -118,11 +111,11 @@ const Page = (props: PageProps) => {
                     <Modal.Title>Create A Note</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <NoteForm notebookId={notebook.id} handleClose={handleModalClose} handleRefetch={fetchNotebookData}></NoteForm>
+                    <NoteForm notebookId={notebookData.id} handleClose={handleModalClose} handleRefetch={fetchNotebookData}></NoteForm>
                 </Modal.Body>
             </Modal>
         </Container>
     );
 };
 
-export default Page;
+export default NotebookPage;

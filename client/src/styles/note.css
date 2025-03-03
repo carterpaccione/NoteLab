@@ -1,0 +1,29 @@
+#main-note-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+
+    background-color: white;
+    color: black;   
+}
+
+#highlight-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+
+    background-color: blueviolet;
+    color: white;
+}
+
+#sticky-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 20px;
+
+    background-color:cadetblue;
+    color: white;
+}

@@ -1,9 +1,0 @@
-#highlight-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 20px;
-
-    background-color: blueviolet;
-    color: white;
-}

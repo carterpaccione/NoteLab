@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS notebook_db;
+
+CREATE DATABASE notebook_db;

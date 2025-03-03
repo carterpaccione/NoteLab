@@ -4,15 +4,14 @@ export interface User {
     password: string;
     email: string;
     created_at: string;
-    notebooks: Notebook[];
+    Notebooks: Notebook[];
 }
 
 export interface Notebook {
     id: number;
     title: string;
     user_id: number;
-    created_at: string;
-    notes: Note[];
+    Notes: Note[];
 }
 
 export enum Importance_Level {

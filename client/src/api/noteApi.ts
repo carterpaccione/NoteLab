@@ -45,4 +45,27 @@ const deleteNote = async (noteId: number) => {
     }
 };
 
-export { createNote, deleteNote };
+const updateNote = async (noteId: number, content: string, importance: string) => {
+    try {
+        const response = await fetch(`/api/notes/${noteId}`, {
+            method: 'PUT',
+            body: JSON.stringify({ content: content, importance: importance }),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+            throw new Error("Error updating note: " + data.message);
+        }
+        return data;
+    } catch (error) {
+        if (error instanceof Error) {
+            return { error: error.message };
+        }
+        return { error: "An unknown error occurred" };
+    }
+}
+
+export { createNote, deleteNote, updateNote };

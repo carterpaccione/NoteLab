@@ -1,93 +1,90 @@
 import express from 'express';
 import type { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
-import { pool } from '../../db/connection.js';
-import type { QueryResult } from 'pg';
+import { User } from '../../models/user.js';
+import { Notebook } from '../../models/notebook.js';
 
 const router = express.Router();
 
 // GET /api/users - Get all users
-router.get('/', async (_req: Request, res: Response) => {
-    const sql = `SELECT * FROM users`;
 
-    pool.query(sql, (err: Error, result: QueryResult) => {
-        if (err) {
-            res.status(400).json({
-                message: err.message
-            });
-            return;
-        }
-        res.json({
-            data: result.rows
+router.get('/', async (_req: Request, res: Response) => {
+    console.log("GET /api/users");
+    try {
+        const users = await User.findAll({
+            attributes: ['id', 'email', 'username'],
         });
-    })
+        if (!users) {
+            return res.status(404).json({ message: 'No users found' });
+        }
+        return res.status(200).json({ data: users });
+    } catch (err) {
+        return res.status(400).json({
+            message: (err as Error).message
+        });
+    }
 });
 
 // GET /api/users/:id - Get a user by ID
-router.get('/:id', async (req: Request, res: Response) => {
-    const userSQL = `SELECT * FROM users WHERE id = $1`;
-    const notebooksSQL = `SELECT * FROM notebooks WHERE user_id = $1`;
-    // const notesSQL = `SELECT * FROM notes WHERE notebook_id = $1`;
-    const params = [req.params.id];
 
+router.get('/:id', async (req: Request, res: Response) => {
     try {
-        const userResult = await pool.query(userSQL, params);
-        const notebooksResult = await pool.query(notebooksSQL, params);
-        res.json({
-            data: {
-                user: {
-                    ...userResult.rows[0],
-                    notebooks: notebooksResult.rows
+        const user = await User.findOne({
+            where: { id: req.params.id },
+            include: [
+                {
+                    model: Notebook,
+                    attributes: ['id', 'title'],
                 }
-            }
+            ]
         });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        console.log("User found: ", user);
+        return res.status(200).json({ data: user });
     } catch (err) {
-        res.status(400).json({
-            message: (err as Error).message,
-            params: params
+        return res.status(400).json({
+            message: (err as Error).message
         });
     }
-})
+});
 
 // POST /api/users - Create a new user
+
 router.post('/', async (req: Request, res: Response) => {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-    const sql = `INSERT INTO users (email, username, password) VALUES ($1, $2, $3)`;
-    const params = [req.body.email, req.body.username, hashedPassword];
-
-    pool.query(sql, params, (err: Error, result: QueryResult) => {
-        if (err) {
-            res.status(400).json({
-                message: err.message,
-                params: params
-            });
-            return;
-        }
-        res.json({
-            message: 'User created',
-            data: result.rows[0]
-        })
-    })
+    console.log("POST /api/users");
+    console.log("Request body: ", req.body);
+    try {
+        const user = await User.create({
+            email: req.body.email,
+            username: req.body.username,
+            password: req.body.password,
+        });
+        return res.status(201).json({ data: user });
+    } catch (err) {
+        return res.status(400).json({
+            message: (err as Error).message
+        });
+    }
 });
 
 // DELETE /api/users - Delete a user by ID
-router.delete('/:id', async (req: Request, res: Response) => {
-    const sql = `DELETE FROM users WHERE id = $1`;
-    const params = [req.params.id];
 
-    pool.query(sql, params, (err: Error, _result: QueryResult) => {
-        if (err) {
-            res.status(400).json({
-                message: err.message,
-                params: params
+router.delete('/:id', async (req: Request, res: Response) => {
+    try {
+        const deletedUser = await User.destroy({ where: { id: req.params.id } });
+        if (deletedUser) {
+            return res.status(200).json({
+                message: 'User deleted',
+                deletedUser: deletedUser
             });
-            return;
         }
-        res.json({
-            message: 'User deleted'
-        })
-    })
-})
+        return res.status(404).json({ message: 'User not found' });
+    } catch (err) {
+        return res.status(400).json({
+            message: (err as Error).message
+        });
+    }
+});
 
 export { router as userRouter };

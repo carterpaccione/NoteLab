@@ -1,9 +1,0 @@
-#main-note-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 20px;
-
-    background-color: white;
-    color: black;   
-}
