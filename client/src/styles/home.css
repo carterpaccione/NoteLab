@@ -1,0 +1,27 @@
+#home-container {
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+    padding: 10px;
+}
+
+#problem-ai-col {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    box-shadow: 5px 5px 5px #888888;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    max-width: 33%;
+    max-height: max-content;
+}
+
+#problem-ai-button-col {
+    max-width: max-content;
+}

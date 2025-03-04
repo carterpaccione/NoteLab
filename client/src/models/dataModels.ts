@@ -27,3 +27,10 @@ export interface Note {
     created_at: string;
     importance: Importance_Level;
 }
+
+export interface ProblemResponse {
+    hint_one: string;
+    hint_two: string;
+    solution: string;
+    code_solution: string;
+}

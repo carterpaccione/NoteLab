@@ -21,9 +21,9 @@ const App: React.FC = () => {
   return (
     <UserContext.Provider value={{ token: user?.token ?? '', user: user?.user ?? null, setUser: setUser }}>
       <Header />
-      <main>
+      <div>
         <Outlet />
-      </main>
+      </div>
     </ UserContext.Provider>
   );
 }
