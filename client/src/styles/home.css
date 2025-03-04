@@ -5,8 +5,14 @@
     padding: 10px;
 }
 
-#problem-ai-col {
-    margin: 10px;
+#content-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0 1rem;
+}
+
+#openAI-col {
     padding: 10px;
     border: 1px solid #000000;
     border-radius: 10px;
@@ -23,5 +29,6 @@
 }
 
 #problem-ai-button-col {
-    max-width: max-content;
+    position: absolute;
+    left: 10px;
 }

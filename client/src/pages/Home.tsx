@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 
 import '../styles/home.css';
 
-import ProblemAI from "../components/ProblemAI";
+import OpenAIChat from "../components/OpenAIChat";
 import NotebookTabs from "../components/NotebookTabs";
 
 const Home = () => {
@@ -29,23 +29,20 @@ const Home = () => {
   return (
     <Container fluid id="home-container">
       <Row>
-        <Col>
+        <Col id="problem-ai-button-col">
+          <Button onClick={() => setShowAIColumn(!showAIColumn)}>
+            Show
+          </Button>
+        </Col>
+        <Col className='text-center'>
           <h1>Welcome {user.user?.username}</h1>
         </Col>
       </Row>
-      <Row>
-        <Col id="problem-ai-col">
-          <Row>
-            <Col>
-              {showAIColumn && <ProblemAI />}
-            </Col>
-            <Col id="problem-ai-button-col">
-              <Button onClick={() => setShowAIColumn(!showAIColumn)}>
-                Show
-              </Button>
-            </Col>
-          </Row>
-        </Col>
+      <Row id="content-row">
+        {showAIColumn ? (
+          <Col id="openAI-col">
+            <OpenAIChat />
+          </Col>) : null}
         <Col>
           <NotebookTabs />
         </Col>

@@ -14,7 +14,7 @@ enum ApiState {
     SUMMARY = 'Summary'
 }
 
-const ProblemAI = () => {
+const OpenAIChat = () => {
 
     const [apiState, setApiState] = useState<ApiState>(ApiState.PROBLEM);
     const [formState, setFormState] = useState({
@@ -78,14 +78,10 @@ const ProblemAI = () => {
                     <Row>
                         {apiState === ApiState.PROBLEM ? (
                             <Col>
-                                <h3>Hint One</h3>
-                                <p>{problemAIResult.hint_one}</p>
-                                <h3>Hint Two</h3>
-                                <p>{problemAIResult.hint_two}</p>
-                                <h3>Solution</h3>
-                                <p>{problemAIResult.solution}</p>
-                                <h3>Code Solution</h3>
-                                <p>{problemAIResult.code_solution}</p>
+                                {problemAIResult.hint_one && <p>Hint 1: {problemAIResult.hint_one}</p>}
+                                {problemAIResult.hint_two && <p>Hint 2: {problemAIResult.hint_two}</p>}
+                                {problemAIResult.solution && <p>Solution: {problemAIResult.solution}</p>}
+                                {problemAIResult.code_solution && <p>Code Solution: {problemAIResult.code_solution}</p>}
                             </Col>
                         ) : (
                             <Col>
@@ -95,7 +91,7 @@ const ProblemAI = () => {
                     </Row>
                     <Form onSubmit={handleFormSubmit}>
                         <Form.Group controlId="formProblemAI">
-                            <Form.Label>Problem</Form.Label>
+                            <Form.Label>{apiState === ApiState.PROBLEM ? 'Enter A Coding Problem' : 'Enter something you want summarized'}</Form.Label>
                             <Form.Control
                                 as="textarea"
                                 rows={3}
@@ -113,4 +109,4 @@ const ProblemAI = () => {
     )
 }
 
-export default ProblemAI;
+export default OpenAIChat;

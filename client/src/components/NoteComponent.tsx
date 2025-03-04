@@ -113,7 +113,7 @@ const NoteComponent = (props: MainProps) => {
                 </Col>
             </Row>
             <Row>
-                <Col>
+                <Col id="note-content">
                     {formShow ? (
                         <Form onSubmit={handleUpdateNoteContent}>
                             <Form.Group controlId="importance">

@@ -1,6 +1,7 @@
 #page-container {
     background-color: #F1D592;
     min-height: 30rem;
+    padding-bottom: 20px;
 }
 
 #page-button {
