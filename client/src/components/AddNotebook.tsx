@@ -24,10 +24,13 @@ const AddNotebookTab = (props: AddNotebookTabProps) => {
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (user.user?.id) {
-            const data = await createNotebook(user.user.id, notebookTitle);
-            console.log(data);
-            setFormShowing(false);
-            props.handleRefetch();
+            try {
+                await createNotebook(user.user.id, notebookTitle);
+                setFormShowing(false);
+                props.handleRefetch();
+            } catch {
+                console.error("Error creating notebook");
+            }
         } else {
             console.error("User ID is undefined");
         }
@@ -47,7 +50,7 @@ const AddNotebookTab = (props: AddNotebookTabProps) => {
                     />
                 </Form.Group>
                 <Button id='submit-new-notebook' type="submit">
-                    Create
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M400-304 240-464l56-56 104 104 264-264 56 56-320 320Z" /></svg>
                 </Button>
             </Form>
         )

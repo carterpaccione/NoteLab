@@ -5,6 +5,8 @@ import { UserContextInterface, UserContext } from './utils/userContext';
 
 import Header from './components/Header';
 
+import './styles/main.css';
+
 
 const App: React.FC = () => {
   const localToken = localStorage.getItem("token");

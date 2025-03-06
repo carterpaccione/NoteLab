@@ -1,0 +1,56 @@
+.login-page-row {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.login-page-col {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+}
+
+
+#button-col {
+    display: flex;
+    justify-content: center;
+    max-width: max-content;
+}
+
+.login-page-button {
+    width: 6rem !important;
+    background-color: var(--onyx) !important;
+    height: 4rem !important;
+}
+
+/* Login */
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    margin: 1rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}
+
+#login-form button {
+    margin-top: 1rem;
+}
+
+/* Sign Up */
+
+#signup-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    margin: 1rem;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}

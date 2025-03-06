@@ -1,10 +1,10 @@
-#page-container {
-    background-color: #F1D592;
+#notebookpage-container {
+    background-color: var(--notebook-color);
     min-height: 30rem;
     padding-bottom: 20px;
 }
 
-#page-button {
+#notebookpage-button {
     display: flex;
     width: max-content;
 
@@ -14,7 +14,7 @@
     cursor: pointer;
 }
 
-#page-button :hover {
+#notebookpage-button :hover {
     width: 1.8rem;
     height: 1.8rem;
     transition: width 0.3s, height 0.3s;

@@ -1,0 +1,29 @@
+:root {
+    --notebook-color: #F1D592;
+    --onyx: #2E3532;
+    --lavendar: #E3DFFF;
+    --sticky-color: #43B929;
+    --highlight-color: #FF37A6;
+}
+
+body {
+    background-color: var(--lavendar);
+    font-family: 'Roboto', sans-serif;
+}
+
+#root button {
+    width: max-content;
+    aspect-ratio: 1/1;
+    border: none;
+    background-color: rgb(0, 0, 0, 0);
+    cursor: pointer;
+}
+
+/* #root button :hover {
+    
+} */
+
+#root p {
+    word-break: break-all;
+    white-space: normal;
+}

@@ -1,0 +1,29 @@
+#response-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 1rem;
+
+    background-color: var(--lavendar);
+    color: black;
+    min-height: 10rem;
+}
+
+.response-col {
+    margin: .5rem;
+    padding: .5rem;
+}
+
+#api-state-button {
+    width: max-content !important;
+    height: 5rem !important;
+    aspect-ratio: none !important;
+    background-color: aliceblue !important;
+    color: black !important;
+
+    padding: 1rem;
+}
+
+#prompt-input {
+    min-height: 10rem;
+}

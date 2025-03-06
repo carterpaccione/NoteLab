@@ -1,38 +1,31 @@
-#main-note-container {
+.note-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-top: 20px;
+}
 
+
+#main-note-container {
     background-color: white;
     color: black;
 
-    border: 2px solid black;
+    border: 1px solid black;
 }
 
 #highlight-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 20px;
-
-    background-color: blueviolet;
+    background-color: var(--highlight-color);
     color: white;
 
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 10px 0 10px 0;
 }
 
 #sticky-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 20px;
-
-    background-color:cadetblue;
+    background-color: var(--sticky-color);
     color: white;
 
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 0 10px 0 10px;
 }
 
@@ -43,7 +36,10 @@
     margin-top: 20px;
 }
 
-p {
-    word-break: break-all;
-    white-space: normal;
+.note-container button {
+    width: max-content;
+    aspect-ratio: 1/1;
+    border: none;
+    background-color: rgb(0, 0, 0, 0);
+    cursor: pointer;
 }

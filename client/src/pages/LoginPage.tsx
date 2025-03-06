@@ -11,26 +11,34 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
+import '../styles/loginPage.css';
+
 const LoginPage = () => {
     const navigate = useNavigate();
     const [pageState, setPageState] = useState("login");
     const user = useUserContext();
-    
+
     useEffect(() => {
         if (user.token) {
             navigate("/");
         }
     })
     return (
-        <Container>
-            <Row>
-                <Col>
-                    <Button onClick={() => setPageState("login")}>Login</Button>
-                    <Button onClick={() => setPageState("signup")}>Sign Up</Button>
+        <Container id='login-page-container'>
+            <Row className='login-page-row'>
+                <Col id='button-col'>
+                    <Button
+                    className='login-page-button'
+                    onClick={() => setPageState("login")}>Login</Button>
+                </Col>
+                <Col id='button-col'>
+                    <Button
+                    className='login-page-button'
+                    onClick={() => setPageState("signup")}>Sign Up</Button>
                 </Col>
             </Row>
-            <Row>
-                <Col>
+            <Row className='login-page-row'>
+                <Col className='login-page-col'>
                     {pageState === "login" ? <Login /> : <SignUp />}
                 </Col>
             </Row>

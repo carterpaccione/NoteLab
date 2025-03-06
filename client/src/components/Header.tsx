@@ -1,6 +1,4 @@
-import React, {
-  useEffect
-} from "react";
+import React, { useEffect } from "react";
 import { useUserContext } from "../utils/userContext";
 import AuthService from "../utils/auth.js";
 
