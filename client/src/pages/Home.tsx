@@ -39,11 +39,11 @@ const Home = () => {
       </Row>
       <Row id="content-row">
         {showAIColumn ? (
-          <Col
-          id="openAI-col">
+          <Col sm={{span: 12, order: 1}} md={{span: 4, order: 1}} lg={{span: 4, order: 1}}
+            id="openAI-col">
             <OpenAIChat />
           </Col>) : null}
-        <Col>
+        <Col sm={{span: 12, order: 2}} md={{span: 8, order: 2}} lg={{span: 8, order: 2}}>
           <NotebookTabs />
         </Col>
       </Row>
