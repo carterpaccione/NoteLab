@@ -18,7 +18,7 @@ export interface PageProps {
     handleRefetch: () => void;
 }
 
-const NotebookPage = (props: PageProps) => {
+const NotebookContent = (props: PageProps) => {
     const [notebookData, setNotebookData] = useState<Notebook | null>(null);
 
     const [mainNotes, setMainNotes] = useState<Note[]>([]);
@@ -96,13 +96,13 @@ const NotebookPage = (props: PageProps) => {
                 </Col>
             </Row>
             <Row>
-                <Col sm={{order: 2}} md={{order: 2}} lg={{span: 3, order: 1}}>
+                <Col sm={{ order: 2 }} md={{ order: 2 }} lg={{ span: 3, order: 1 }}>
                     {highlightNotes.map(note => <NoteComponent key={note.id} note={note} handleRefetch={fetchNotebookData} />)}
                 </Col>
-                <Col sm={{order: 1}} md={{order: 1}} lg={{span: 6, order: 2}}>
+                <Col sm={{ order: 1 }} md={{ order: 1 }} lg={{ span: 6, order: 2 }}>
                     {mainNotes.map(note => <NoteComponent key={note.id} note={note} handleRefetch={fetchNotebookData} />)}
                 </Col>
-                <Col sm={{order: 3}} md={{order: 3}} lg={{span: 3, order: 3}}>
+                <Col sm={{ order: 3 }} md={{ order: 3 }} lg={{ span: 3, order: 3 }}>
                     {stickyNotes.map(note => <NoteComponent key={note.id} note={note} handleRefetch={fetchNotebookData} />)}
                 </Col>
             </Row>
@@ -118,4 +118,4 @@ const NotebookPage = (props: PageProps) => {
     );
 };
 
-export default NotebookPage;
+export default NotebookContent;

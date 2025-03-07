@@ -34,6 +34,7 @@ const AddNotebookTab = (props: AddNotebookTabProps) => {
         } else {
             console.error("User ID is undefined");
         }
+        setNotebookTitle('');
         setFormShowing(false);
     };
 

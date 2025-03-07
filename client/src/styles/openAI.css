@@ -26,4 +26,5 @@
 
 #prompt-input {
     min-height: 10rem;
+    field-sizing: content;
 }

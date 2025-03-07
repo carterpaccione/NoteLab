@@ -94,7 +94,7 @@ const OpenAIChat = () => {
     };
 
     return (
-        <Container id="open-ai-chat">
+        <Container>
             <Row>
                 <Col>
                     <Button id='api-state-button' onClick={handleAPIStateChange}>{apiState} Helper</Button>
