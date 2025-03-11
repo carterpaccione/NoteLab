@@ -11,6 +11,7 @@ import '../styles/note.css';
 import { Note } from '../models/dataModels.js';
 import { deleteNote, updateNote } from '../api/noteApi.js';
 
+import DeleteModal from './DeleteModal';
 interface MainProps {
     note: Note;
     handleRefetch: () => void;
@@ -25,6 +26,11 @@ const NoteComponent = (props: MainProps) => {
     });
 
     const [formShow, setFormShow] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const handleShowDeleteModal = () => {
+        setShowDeleteModal(!showDeleteModal);
+        return !showDeleteModal;
+    }
 
     const setContainerProperties = () => {
         switch (props.note.importance.toString()) {
@@ -46,7 +52,7 @@ const NoteComponent = (props: MainProps) => {
                     <Form.Select onChange={handleSelectChange}>
                         <option value="Main">Main</option>
                         <option value="Highlight">Highlight</option>
-                        <option value="Sticky">Sticky</option>
+                        <option value="Sticky">Code</option>
                     </Form.Select>
                 );
             case "Highlight":
@@ -54,13 +60,13 @@ const NoteComponent = (props: MainProps) => {
                     <Form.Select onChange={handleSelectChange}>
                         <option value="Highlight">Highlight</option>
                         <option value="Main">Main</option>
-                        <option value="Sticky">Sticky</option>
+                        <option value="Sticky">Code</option>
                     </Form.Select>
                 );
             case "Sticky":
                 return (
                     <Form.Select onChange={handleSelectChange}>
-                        <option value="Sticky">Sticky</option>
+                        <option value="Sticky">Code</option>
                         <option value="Main">Main</option>
                         <option value="Highlight">Highlight</option>
                     </Form.Select>
@@ -101,15 +107,22 @@ const NoteComponent = (props: MainProps) => {
 
     return (
         <Container id={`${setContainerProperties()}`} className='note-container'>
-            <Row>
+            <Row id='note-header'>
+                <Col>
                     <Button
                         onClick={() => setFormShow(!formShow)}>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M160-400v-80h280v80H160Zm0-160v-80h440v80H160Zm0-160v-80h440v80H160Zm360 560v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q8 9 12.5 20t4.5 22q0 11-4 22.5T863-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
                         </svg>
                     </Button>
-                    <Button onClick={handleDeleteButton}>
+                </Col>
+                <Col>
+                    <p style={{ color: 'black' }}>{new Date(props.note.createdAt).toLocaleDateString()}</p>
+                </Col>
+                <Col>
+                    <Button onClick={handleShowDeleteModal}>
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" /></svg>
                     </Button>
+                </Col>
             </Row>
             <Row>
                 <Col id="note-content">
@@ -131,10 +144,17 @@ const NoteComponent = (props: MainProps) => {
                             </Button>
                         </Form>
                     ) : (
-                        <p>{props.note.content}</p>
+                        props.note.importance === 'Sticky' ? (
+                            <pre>
+                                <code>{props.note.content}</code>
+                            </pre>
+                        ) : (
+                            <p>{props.note.content}</p>
+                        )
                     )}
                 </Col>
             </Row>
+            <DeleteModal show={showDeleteModal} handleShow={handleShowDeleteModal} onDelete={handleDeleteButton} />
         </Container>
     );
 }

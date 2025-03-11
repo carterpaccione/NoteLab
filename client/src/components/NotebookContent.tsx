@@ -12,6 +12,7 @@ import { Notebook, Note } from "../models/dataModels.js";
 import { deleteNotebook, fetchNotebook } from "../api/notebookAPI";
 import NoteComponent from "./NoteComponent";
 import NoteForm from "./NoteForm";
+import DeleteModal from "./DeleteModal";
 
 export interface PageProps {
     notebookId: number;
@@ -22,12 +23,18 @@ const NotebookContent = (props: PageProps) => {
     const [notebookData, setNotebookData] = useState<Notebook | null>(null);
 
     const [mainNotes, setMainNotes] = useState<Note[]>([]);
-    const [stickyNotes, setStickyNotes] = useState<Note[]>([]);
-    const [highlightNotes, setHighlightNotes] = useState<Note[]>([]);
+    const [sideNotes, setsideNotes] = useState<Note[]>([]);
     // const [error, setError] = useState<string | null>(null);
+    // Create Note Modal
     const [showModal, setShowModal] = useState<boolean>(false);
     const handleModalClose = () => setShowModal(false);
     const handleModalShow = () => setShowModal(true);
+    // Delete Notebook Modal
+    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const handleShowDeleteModal = () => {
+        setShowDeleteModal(!showDeleteModal);
+        return !showDeleteModal;
+    }
 
     const fetchNotebookData = useCallback(async () => {
         try {
@@ -41,21 +48,17 @@ const NotebookContent = (props: PageProps) => {
 
     const sortNotes = (notes: Note[]) => {
         const mainNotes: Note[] = [];
-        const stickyNotes: Note[] = [];
-        const highlightNotes: Note[] = [];
+        const sideNotes: Note[] = [];
 
         notes.forEach(note => {
             if (note.importance === 'Main') {
                 mainNotes.push(note);
-            } else if (note.importance === 'Sticky') {
-                stickyNotes.push(note);
             } else {
-                highlightNotes.push(note);
+                sideNotes.push(note);
             }
         });
         setMainNotes(mainNotes);
-        setStickyNotes(stickyNotes);
-        setHighlightNotes(highlightNotes);
+        setsideNotes(sideNotes);
     };
 
     const handleDeleteButton = async () => {
@@ -79,11 +82,13 @@ const NotebookContent = (props: PageProps) => {
 
     return (
         <Container id="notebookpage-container">
-            <Row>
+            <Row id='notebookpage-button-row'>
                 <Col>
                     <Button
                         id='notebookpage-button'
-                        onClick={() => handleDeleteButton()}>
+                        // onClick={() => handleDeleteButton()}
+                        onClick={handleShowDeleteModal}
+                    >
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M580-280h80q25 0 42.5-17.5T720-340v-160h40v-60H660v-40h-80v40H480v60h40v160q0 25 17.5 42.5T580-280Zm0-220h80v160h-80v-160ZM160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h240l80 80h320q33 0 56.5 23.5T880-640v400q0 33-23.5 56.5T800-160H160Zm0-80h640v-400H447l-80-80H160v480Zm0 0v-480 480Z" /></svg>
                     </Button>
                 </Col>
@@ -96,14 +101,11 @@ const NotebookContent = (props: PageProps) => {
                 </Col>
             </Row>
             <Row>
-                <Col sm={{ order: 2 }} md={{ order: 2 }} lg={{ span: 3, order: 1 }}>
-                    {highlightNotes.map(note => <NoteComponent key={note.id} note={note} handleRefetch={fetchNotebookData} />)}
-                </Col>
-                <Col sm={{ order: 1 }} md={{ order: 1 }} lg={{ span: 6, order: 2 }}>
+                <Col sm={{ order: 1 }} md={{ order: 1 }} lg={{ span: 8, order: 1 }}>
                     {mainNotes.map(note => <NoteComponent key={note.id} note={note} handleRefetch={fetchNotebookData} />)}
                 </Col>
-                <Col sm={{ order: 3 }} md={{ order: 3 }} lg={{ span: 3, order: 3 }}>
-                    {stickyNotes.map(note => <NoteComponent key={note.id} note={note} handleRefetch={fetchNotebookData} />)}
+                <Col sm={{ order: 2 }} md={{ order: 2 }} lg={{ span: 4, order: 2 }}>
+                    {sideNotes.map(note => <NoteComponent key={note.id} note={note} handleRefetch={fetchNotebookData} />)}
                 </Col>
             </Row>
             <Modal show={showModal} onHide={handleModalClose}>
@@ -114,6 +116,7 @@ const NotebookContent = (props: PageProps) => {
                     <NoteForm notebookId={notebookData.id} handleClose={handleModalClose} handleRefetch={fetchNotebookData}></NoteForm>
                 </Modal.Body>
             </Modal>
+            <DeleteModal show={showDeleteModal} handleShow={handleShowDeleteModal} onDelete={handleDeleteButton} />
         </Container>
     );
 };

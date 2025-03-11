@@ -50,7 +50,7 @@ const NoteForm = (props: NoteFormProps) => {
                 <Form.Select onChange={handleSelectChange}>
                     <option value="Main">Main</option>
                     <option value="Highlight">Highlight</option>
-                    <option value="Sticky">Sticky</option>
+                    <option value="Sticky">Code</option>
                 </Form.Select>
             </Form.Group>
             <Form.Group controlId="noteContent">

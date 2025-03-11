@@ -14,9 +14,10 @@ router.get('/:id', async (req: Request, res: Response) => {
             include: [
                 {
                     model: Note,
-                    attributes: ['id', 'content', 'importance']
+                    attributes: ['id', 'content', 'importance', 'createdAt']
                 }
-            ]
+            ],
+            order: [[Note, 'createdAt', 'ASC']]
         });
         if (notebook) {
             return res.status(200).json({ data: notebook });

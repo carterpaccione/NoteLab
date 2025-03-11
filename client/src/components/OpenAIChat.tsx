@@ -17,18 +17,20 @@ enum ApiState {
 }
 
 const OpenAIChat = () => {
+    const localStorageProbelmResult = localStorage.getItem('problemResult');
+    const localStorageSummaryResult = localStorage.getItem('summaryResult');
 
     const [apiState, setApiState] = useState<ApiState>(ApiState.PROBLEM);
     const [formState, setFormState] = useState({
         prompt: ""
     });
-    const [problemAIResult, setProblemAIResult] = useState<ProblemResponse>({
+    const [problemAIResult, setProblemAIResult] = useState<ProblemResponse>(localStorageProbelmResult ? JSON.parse(localStorageProbelmResult) : {
         hint_one: "",
         hint_two: "",
         solution: "",
         code_solution: ""
     });
-    const [summaryAIResult, setSummaryAIResult] = useState({
+    const [summaryAIResult, setSummaryAIResult] = useState(localStorageSummaryResult ? JSON.parse(localStorageSummaryResult) : {
         summary: ""
     });
 
@@ -66,8 +68,8 @@ const OpenAIChat = () => {
         if (apiState === ApiState.PROBLEM) {
             try {
                 const problemResponse = await fetchProblemResponse(formState.prompt);
-                console.log("Problem response: ", problemResponse);
                 setProblemAIResult(problemResponse);
+                localStorage.setItem('problemResult', JSON.stringify(problemResponse));
             } catch (error) {
                 console.error("Error fetching problem response: ", error);
                 setError("Error fetching problem response");
@@ -76,6 +78,7 @@ const OpenAIChat = () => {
             try {
                 const summaryResponse = await fetchSummaryResponse(formState.prompt);
                 setSummaryAIResult(summaryResponse);
+                localStorage.setItem('summaryResult', JSON.stringify(summaryResponse));
             } catch (error) {
                 console.error("Error fetching summary response: ", error);
                 setError("Error fetching summary response");
@@ -94,7 +97,7 @@ const OpenAIChat = () => {
     };
 
     return (
-        <Container>
+        <Container fluid>
             <Row>
                 <Col>
                     <Button id='api-state-button' onClick={handleAPIStateChange}>{apiState} Helper</Button>
@@ -104,7 +107,7 @@ const OpenAIChat = () => {
                                 {problemAIResult.hint_one && <p><h5>Hint 1:</h5>{problemAIResult.hint_one}</p>}
                                 {problemAIResult.hint_two && <p><h5>Hint 2:</h5>{problemAIResult.hint_two}</p>}
                                 {problemAIResult.solution && <p><h5>Solution:</h5>{problemAIResult.solution}</p>}
-                                {problemAIResult.code_solution && <p><h5>Code:</h5><code>{problemAIResult.code_solution}</code></p>}
+                                {problemAIResult.code_solution && <p><h5>Code:</h5><pre><code>{problemAIResult.code_solution}</code></pre></p>}
                             </Col>
                         ) : (
                             <Col className='response-col'>

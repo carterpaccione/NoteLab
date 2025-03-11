@@ -11,6 +11,7 @@ interface NoteAttributes {
     content: string;
     notebook_id: number;
     importance?: ImportanceLevel;
+    createdAt?: Date;
 }
 
 interface NoteCreationAttributes extends Optional<NoteAttributes, "id"> { }
@@ -47,7 +48,12 @@ export function NoteFactory(sequelize: Sequelize): typeof Note {
                     ImportanceLevel.STICKY),
                 allowNull: false,
                 defaultValue: ImportanceLevel.MAIN,
-            }
+            },
+            createdAt: {
+                type: DataTypes.DATE,
+                allowNull: false,
+                defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+            },
         },
         {
             tableName: "notes",

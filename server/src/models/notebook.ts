@@ -4,6 +4,7 @@ interface NotebookAttributes {
     id: number;
     title: string;
     user_id: number;
+    createdAt?: Date;
 }
 
 interface NotebookCreationAttributes extends Optional<NotebookAttributes, "id"> {}
@@ -15,6 +16,7 @@ export class Notebook
     public id!: number;
     public title!: string;
     public user_id!: number;
+    public readonly createdAt!: Date;
 }
 
 export function NotebookFactory(sequelize: Sequelize): typeof Notebook {
@@ -32,6 +34,11 @@ export function NotebookFactory(sequelize: Sequelize): typeof Notebook {
             user_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
+            },
+            createdAt: {
+                type: DataTypes.DATE,
+                allowNull: false,
+                defaultValue: DataTypes.NOW,
             },
         },
         {

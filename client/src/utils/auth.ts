@@ -2,7 +2,6 @@ import { jwtDecode } from "jwt-decode";
 
 export interface UserToken {
   username: string;
-  email: string;
   id: string;
   exp: number;
 }
@@ -41,6 +40,8 @@ class AuthService {
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("problemResult");
+    localStorage.removeItem("summaryResult");
   }
 }
 

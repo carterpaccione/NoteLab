@@ -15,7 +15,6 @@ import NotebookComponent from '../components/NotebookComponent';
 const Home = () => {
   const navigate = useNavigate();
   const user = useUserContext();
-  console.log('HOME USER:', user);
 
   const [showAIColumn, setShowAIColumn] = useState(false);
 
@@ -39,11 +38,11 @@ const Home = () => {
       </Row>
       <Row id="content-row">
         {showAIColumn ? (
-          <Col sm={{ span: 12, order: 1 }} md={{ span: 4, order: 1 }} lg={{ span: 4, order: 1 }}
+          <Col sm={{ span: 12, order: 1 }} md={{ span: 12, order: 1 }} lg={{ span: 4, order: 1 }}
             id="openAI-col">
             <OpenAIChat />
           </Col>) : null}
-        <Col sm={{ span: 12, order: 2 }} md={{ span: 8, order: 2 }} lg={{ span: 8, order: 2 }}>
+        <Col {...(showAIColumn ? { sm: { span: 12, order: 2 }, md: { span: 12, order: 2 }, lg: { span: 8, order: 2 } } : { sm: { span: 12, order: 1 }, md: { span: 12, order: 1 }, lg: { span: 12, order: 1 } })}>
           {user.user && <NotebookComponent user_id={user.user.id} />}
         </Col>
       </Row>

@@ -1,13 +1,17 @@
 #notebookpage-container {
     background-color: var(--notebook-color);
-    min-height: 30rem;
+    min-height: 32rem;
     padding-bottom: 20px;
 }
 
-#notebookpage-button {
+#notebookpage-button-row {
     display: flex;
-    width: max-content;
+    justify-content: space-between;
+    margin: 0 1rem;
+    text-align: center;
+}
 
+#notebookpage-button {
     background-color: rgba(0, 0, 0, 0);
     color: black;
     border: none;

@@ -30,11 +30,15 @@ router.get('/:id', async (req: Request, res: Response) => {
     try {
         const user = await User.findOne({
             where: { id: req.params.id },
+            attributes: { exclude: ['password'] },
             include: [
                 {
                     model: Notebook,
-                    attributes: ['id', 'title'],
+                    attributes: ['id', 'title', 'createdAt'],
                 }
+            ],
+            order: [
+                [Notebook, 'createdAt', 'ASC']
             ]
         });
         if (!user) {

@@ -12,6 +12,7 @@ export interface Notebook {
     title: string;
     user_id: number;
     Notes: Note[];
+    createdAt: Date;
 }
 
 export enum Importance_Level {
@@ -24,8 +25,8 @@ export interface Note {
     id: number;
     content: string;
     notebookId: number;
-    created_at: string;
     importance: Importance_Level;
+    createdAt: Date;
 }
 
 export interface ProblemResponse {

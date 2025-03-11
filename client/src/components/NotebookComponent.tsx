@@ -17,13 +17,9 @@ const NotebookComponent = (props: NotebookComponentProps) => {
     const [currentNotebook, setCurrentNotebook] = useState<number | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    console.log("Props: ", props);
-    console.log("UserData: ", userData);
-
     const fetchData = useCallback(async () => {
         if (props.user_id) {
             const fetchedData = await fetchUserData(props.user_id);
-            console.log("Fetched Data: ", fetchedData);
             if (!fetchedData.data.Notebooks) {
                 setCurrentNotebook(null);
             } else {
@@ -45,7 +41,7 @@ const NotebookComponent = (props: NotebookComponentProps) => {
     }, [props.user_id, fetchData]);
 
     return (
-        <Container>
+        <Container fluid>
             <NotebookTabs notebooks={userData?.Notebooks || []} handleRefetch={fetchData} setCurrentNotebook={setCurrentNotebook} />
             <Row>
                 {currentNotebook && <NotebookContent notebookId={currentNotebook} handleRefetch={fetchData} />}
