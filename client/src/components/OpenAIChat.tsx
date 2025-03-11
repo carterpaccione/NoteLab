@@ -96,6 +96,19 @@ const OpenAIChat = () => {
         }
     };
 
+    const handleShowHint = (hint: string) => {
+        const hintElement = document.getElementById(hint);
+        if (hintElement) {
+            // hintElement.style.filter = "none";
+            if (hintElement.style.filter === "none") {
+                hintElement.style.filter = "blur(5px)";
+            }
+            else {
+                hintElement.style.filter = "none";
+            }
+        }
+    }
+
     return (
         <Container fluid>
             <Row>
@@ -104,10 +117,10 @@ const OpenAIChat = () => {
                     <Row id='response-row'>
                         {apiState === ApiState.PROBLEM ? (
                             <Col className='response-col'>
-                                {problemAIResult.hint_one && <p><h5>Hint 1:</h5>{problemAIResult.hint_one}</p>}
-                                {problemAIResult.hint_two && <p><h5>Hint 2:</h5>{problemAIResult.hint_two}</p>}
-                                {problemAIResult.solution && <p><h5>Solution:</h5>{problemAIResult.solution}</p>}
-                                {problemAIResult.code_solution && <p><h5>Code:</h5><pre><code>{problemAIResult.code_solution}</code></pre></p>}
+                                {problemAIResult.hint_one && <Row><h5 onClick={() => handleShowHint('hint-one')}>Hint 1:</h5><p style={{ filter: 'blur(5px)' }} id='hint-one'>{problemAIResult.hint_one}</p></Row>}
+                                {problemAIResult.hint_two && <Row><h5 onClick={() => handleShowHint('hint-two')}>Hint 2:</h5><p style={{ filter: 'blur(5px)' }} id='hint-two'>{problemAIResult.hint_two}</p></Row>}
+                                {problemAIResult.solution && <Row><h5 onClick={() => handleShowHint('solution')}>Solution:</h5><p style={{ filter: 'blur(5px)' }} id='solution'>{problemAIResult.solution}</p></Row>}
+                                {problemAIResult.code_solution && <Row><h5 onClick={() => handleShowHint('code-solution')}>Code Solution:</h5><p style={{ filter: 'blur(5px)' }} id='code-solution'>{problemAIResult.code_solution}</p></Row>}
                             </Col>
                         ) : (
                             <Col className='response-col'>

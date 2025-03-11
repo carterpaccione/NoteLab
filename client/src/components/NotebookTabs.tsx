@@ -25,7 +25,7 @@ interface NotebookTabProps {
 const NotebookTabs = (props: NotebookTabProps) => {
     const [currentNotebook, setCurrentNotebook] = useState<Notebook | null>(null);
     const [notebookTabIndices, setNotebookTabIndices] = useState<TabIndex>({ startingIndex: 0, endingIndex: 3 });
-    const [showEditTitle, setShowEditTitle] = useState<boolean>(false);
+    const [editingNotebookId, setEditingNotebookId] = useState<number | null>(null);
 
 
     const handleShowLess = () => {
@@ -51,37 +51,44 @@ const NotebookTabs = (props: NotebookTabProps) => {
         renderNotebooks(notebookTabIndices.startingIndex, notebookTabIndices.endingIndex);
     }
 
-    const handleEditTitleClick = () => {
-        setShowEditTitle(!showEditTitle);
-    }
+    const handleEditTitleClick = (notebookId: number) => {
+        setEditingNotebookId(editingNotebookId === notebookId ? null : notebookId);
+    };
 
     const renderNotebooks = (startingIndex: number, endingIndex: number) => {
-        return props.notebooks.slice(startingIndex, endingIndex).map((notebook, index) => {
+        return props.notebooks.slice(startingIndex, endingIndex).map((notebook) => {
             return (
-                <Col key={index}
+                <Col key={notebook.id} // Use notebook.id instead of index for uniqueness
                     className={`notebook-tab ${currentNotebook?.id === notebook.id ? 'selected-notebook-tab' : ''}`}
                     onClick={() => { setCurrentNotebook(notebook); props.setCurrentNotebook(notebook.id); }}
                 >
-                    {showEditTitle ?
+                    {editingNotebookId === notebook.id ? (
                         <NotebookTitleForm
                             notebookId={notebook.id}
                             title={notebook.title}
                             handleRefetch={props.handleRefetch}
-                            handleClose={handleEditTitleClick}
-                        /> :
-                        <p>{notebook.title} <a onClick={handleEditTitleClick}>
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" /></svg>
-                        </a></p>}
+                            handleClose={() => setEditingNotebookId(null)}
+                        />
+                    ) : (
+                        <p>
+                            {notebook.title}
+                            <a onClick={() => handleEditTitleClick(notebook.id)}>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000">
+                                    <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+                                </svg>
+                            </a>
+                        </p>
+                    )}
                 </Col>
             );
         });
-    }
+    };
 
     if (!props.notebooks || props.notebooks.length === 0 || props.notebooks === undefined || props.notebooks === null) {
         return (
-            <>
+            <Row>
                 <AddNotebookTab handleRefetch={props.handleRefetch} />
-            </>
+            </Row>
         )
     }
 
