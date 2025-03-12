@@ -7,6 +7,19 @@
     flex-direction: column;
 }
 
+#welcome-message-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    max-height: max-content;
+    margin-bottom: 1rem;
+
+    color: var(--color-light);
+}
+
 #content-row {
     display: flex;
     flex-direction: row;
@@ -16,10 +29,9 @@
 
 #openAI-col {
     padding: 10px;
-    border: 1px solid #000000;
+    border: 2px solid var(--color-light);
     border-radius: 10px;
-    background-color: grey;
-    box-shadow: 5px 5px 5px #888888;
+    background-color: var(--color-tertiary);
     display: flex;
     flex-direction: column;
     justify-content: center;

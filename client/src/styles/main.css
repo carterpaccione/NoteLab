@@ -1,14 +1,32 @@
+@font-face {
+    font-family: 'LititaOne-Regular';
+    src: url('../assets/LilitaOne-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Outfit-VariableFont';
+    src: url('../assets/Outfit-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+}
+
 :root {
     --notebook-color: #F1D592;
-    --onyx: #2E3532;
-    --lavendar: #E3DFFF;
     --sticky-color: #43B929;
     --highlight-color: #FF37A6;
+
+    --color-light: #FEFAE0;
+
+    --color-primary: #003844;
+    --color-secondary: #8E8DBE;
+    --color-tertiary: #006C67;
+    --color-quaternary: #3DDC97;
 }
 
 body {
-    background-color: var(--lavendar);
-    font-family: 'Roboto', sans-serif;
+    background-color: var(--color-primary);
+    /* font-family: var(--Outfit-VariableFont); */
+    font-family: 'LititaOne-Regular';
 }
 
 #root button {
@@ -18,10 +36,6 @@ body {
     background-color: rgb(0, 0, 0, 0);
     cursor: pointer;
 }
-
-/* #root button :hover {
-    
-} */
 
 #root p {
     word-break: break-all;

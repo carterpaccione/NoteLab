@@ -12,12 +12,12 @@ import { Note } from '../models/dataModels.js';
 import { deleteNote, updateNote } from '../api/noteApi.js';
 
 import DeleteModal from './DeleteModal';
-interface MainProps {
+interface NoteProps {
     note: Note;
     handleRefetch: () => void;
 }
 
-const NoteComponent = (props: MainProps) => {
+const NoteComponent = (props: NoteProps) => {
 
     const [editNote, setEditNote] = useState({
         notebook_id: props.note.notebookId,

@@ -117,10 +117,10 @@ const OpenAIChat = () => {
                     <Row id='response-row'>
                         {apiState === ApiState.PROBLEM ? (
                             <Col className='response-col'>
-                                {problemAIResult.hint_one && <Row><h5 onClick={() => handleShowHint('hint-one')}>Hint 1:</h5><p style={{ filter: 'blur(5px)' }} id='hint-one'>{problemAIResult.hint_one}</p></Row>}
-                                {problemAIResult.hint_two && <Row><h5 onClick={() => handleShowHint('hint-two')}>Hint 2:</h5><p style={{ filter: 'blur(5px)' }} id='hint-two'>{problemAIResult.hint_two}</p></Row>}
-                                {problemAIResult.solution && <Row><h5 onClick={() => handleShowHint('solution')}>Solution:</h5><p style={{ filter: 'blur(5px)' }} id='solution'>{problemAIResult.solution}</p></Row>}
-                                {problemAIResult.code_solution && <Row><h5 onClick={() => handleShowHint('code-solution')}>Code Solution:</h5><p style={{ filter: 'blur(5px)' }} id='code-solution'>{problemAIResult.code_solution}</p></Row>}
+                                {problemAIResult.hint_one && <Row className='response'><h5 onClick={() => handleShowHint('hint-one')}>Hint 1:</h5><p style={{ filter: 'blur(5px)' }} id='hint-one'>{problemAIResult.hint_one}</p></Row>}
+                                {problemAIResult.hint_two && <Row className='response'><h5 onClick={() => handleShowHint('hint-two')}>Hint 2:</h5><p style={{ filter: 'blur(5px)' }} id='hint-two'>{problemAIResult.hint_two}</p></Row>}
+                                {problemAIResult.solution && <Row className='response'><h5 onClick={() => handleShowHint('solution')}>Solution:</h5><p style={{ filter: 'blur(5px)' }} id='solution'>{problemAIResult.solution}</p></Row>}
+                                {problemAIResult.code_solution && <Row className='response'><h5 onClick={() => handleShowHint('code-solution')}>Code Solution:</h5><pre style={{ filter: 'blur(5px)' }} id='code-solution'><code>{problemAIResult.code_solution}</code></pre></Row>}
                             </Col>
                         ) : (
                             <Col className='response-col'>

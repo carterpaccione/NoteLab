@@ -9,7 +9,7 @@ import { fetchUserData } from '../api/userAPI';
 import { User, Notebook } from '../models/dataModels';
 
 interface NotebookComponentProps {
-    user_id: string;
+    user_id: number;
 }
 
 const NotebookComponent = (props: NotebookComponentProps) => {
@@ -33,10 +33,10 @@ const NotebookComponent = (props: NotebookComponentProps) => {
     }, [props.user_id, currentNotebook]);
 
     useEffect(() => {
-        if (props.user_id) {
+        try {
             fetchData();
-        } else {
-            setError("User ID not provided");
+        } catch (error) {
+            setError((error as Error).message);
         }
     }, [props.user_id, fetchData]);
 

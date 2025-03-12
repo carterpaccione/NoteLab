@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useUserContext } from "../utils/userContext";
 import { fetchLogin } from '../api/userAPI.js';
 import AuthService from '../utils/auth.js';
 
@@ -10,8 +9,6 @@ import Button from "react-bootstrap/Button";
 
 const Login = () => {
   const navigate = useNavigate();
-
-  const user = useUserContext();
 
   const [loginInfo, setLoginInfo] = useState({
     username: "",
@@ -40,8 +37,7 @@ const Login = () => {
         setErrorMessage(tokenData.error);
         return;
       }
-      AuthService.login(tokenData.token, tokenData.userData);
-      user.setUser({ token: tokenData.token, user: tokenData.userData, setUser: user.setUser });
+      AuthService.login(tokenData.token);
       navigate("/");
     } catch (error) {
       setErrorMessage("Error loggin in :" + error);

@@ -68,7 +68,7 @@ const deleteNotebook = async (notebookId: number) => {
     }
 };
 
-const createNotebook = async (userId: string, title: string) => {
+const createNotebook = async (userId: number, title: string) => {
     try {
         const response = await fetch(`/api/notebooks`, {
             method: 'POST',

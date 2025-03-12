@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useUserContext } from "../utils/userContext";
+import AuthService from "../utils/auth";
 
 import Login from "../components/Login";
 import SignUp from "../components/SignUp";
@@ -15,14 +15,11 @@ import '../styles/loginPage.css';
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    if(AuthService.loggedIn()) {
+        navigate('/');
+    };
     const [pageState, setPageState] = useState("login");
-    const user = useUserContext();
 
-    useEffect(() => {
-        if (user.token) {
-            navigate("/");
-        }
-    })
     return (
         <Container id='login-page-container'>
             <Row className='login-page-row'>

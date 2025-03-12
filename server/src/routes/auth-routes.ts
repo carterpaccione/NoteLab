@@ -26,8 +26,9 @@ export const login = async (req: Request, res: Response) => {
         return res.status(500).json({ message: 'Internal server error' });
     }
 
-    const token = jwt.sign({ username }, secretKey, { expiresIn: '1h' });
-    return res.json({ token: token, userData: user });
+    const token = jwt.sign({ username: username, id: user.id }, secretKey, { expiresIn: '1h' });
+    console.log('Token: ', token, 'User: ', user);
+    return res.json({ token });
 };
 
 const router = Router();

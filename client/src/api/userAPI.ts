@@ -52,7 +52,7 @@ const fetchLogin = async (username: string, password: string) => {
     }
 };
 
-const fetchUserData = async (userId: string | undefined) => {
+const fetchUserData = async (userId: number | undefined) => {
     if (userId === undefined) {
         throw new Error("User ID is undefined");
     }

@@ -4,15 +4,14 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-import { useUserContext } from "../utils/userContext.js";
 import { createNotebook } from "../api/notebookAPI.js";
 
 interface AddNotebookTabProps {
+    user_id: number;
     handleRefetch: () => void;
 }
 
 const AddNotebookTab = (props: AddNotebookTabProps) => {
-    const user = useUserContext();
 
     const [formShowing, setFormShowing] = useState(false);
     const [notebookTitle, setNotebookTitle] = useState('');
@@ -23,9 +22,9 @@ const AddNotebookTab = (props: AddNotebookTabProps) => {
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (user.user?.id) {
+        if (props.user_id) {
             try {
-                await createNotebook(user.user.id, notebookTitle);
+                await createNotebook(props.user_id, notebookTitle);
                 setFormShowing(false);
                 props.handleRefetch();
             } catch {

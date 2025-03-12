@@ -2,7 +2,8 @@ import { jwtDecode } from "jwt-decode";
 
 export interface UserToken {
   username: string;
-  id: string;
+  id: number;
+  iat: number;
   exp: number;
 }
 
@@ -32,9 +33,9 @@ class AuthService {
     return localStorage.getItem("token");
   }
 
-  login(token: string, userData: UserToken) {
+  login(token: string) {
     localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("user", JSON.stringify(jwtDecode<UserToken>(token)));
   }
 
   logout() {

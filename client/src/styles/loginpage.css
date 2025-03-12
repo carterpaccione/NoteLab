@@ -19,8 +19,16 @@
 
 .login-page-button {
     width: 6rem !important;
-    background-color: var(--onyx) !important;
+    background-color: var(--color-tertiary) !important;
+    color: var(--color-secondary) !important;
     height: 4rem !important;
+
+    font-weight: bold;
+
+    &:hover {
+        background-color: var(--color-quaternary) !important;
+        color: var(--color-tertiary) !important;
+    }
 }
 
 /* Login */
@@ -32,13 +40,31 @@
     align-items: center;
     padding: 1rem;
     margin: 1rem;
-    border: 1px solid #000;
+    border: 2px solid var(--color-secondary);
     border-radius: 5px;
-    background-color: #f0f0f0;
+    background-color: var(--color-tertiary);
 }
 
-#login-form button {
+.form-label {
+    color: var(--color-secondary);
+    font-weight: bold;
+}
+
+.form-control {
+    margin: 1rem auto;
+}
+
+/* #login-form button {
     margin-top: 1rem;
+} */
+
+#login-form button {
+    text-align: center;
+}
+
+#login-form button :hover {
+    width: 2rem;
+    height: 2rem;
 }
 
 /* Sign Up */
@@ -50,7 +76,16 @@
     align-items: center;
     padding: 1rem;
     margin: 1rem;
-    border: 1px solid #000;
+    border: 2px solid var(--color-secondary);
     border-radius: 5px;
-    background-color: #f0f0f0;
+    background-color: var(--color-tertiary);
+}
+
+#signup-form button {
+    text-align: center;
+}
+
+#signup-form button :hover {
+    width: 2rem;
+    height: 2rem;
 }

@@ -1,12 +1,19 @@
 #header-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
     padding: 0 20px;
-
-    background-color: black;
+    height: 5rem;
 }
 
 #header-container a {
-    color: white;
+    color: var(--color-light);
+
+    &:hover {
+        color: var(--color-quaternary);
+    }
+}
+
+.navbar-brand {
+    font-size: x-large;
+    font-weight: bold;
 }

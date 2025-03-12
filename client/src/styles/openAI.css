@@ -4,35 +4,44 @@
     justify-content: space-around;
     margin: 1rem;
 
-    background-color: var(--lavendar);
-    color: black;
+    background-color: var(--color-light);
+    color: var(--color-primary);
     min-height: 10rem;
     text-align: left;
 }
-
-#response-row p {
-    margin: .5rem;
-    padding: .5rem;
-
-    overflow-wrap: break-word;
-}
-
 .response-col {
     margin: .5rem;
     padding: .5rem;
+}
+
+.response h5 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primary);
+    cursor: pointer;
+
+    width: max-content;
 }
 
 #api-state-button {
     width: max-content !important;
     height: 5rem !important;
     aspect-ratio: none !important;
-    background-color: aliceblue !important;
-    color: black !important;
-
+    background-color: var(--color-tertiary)!important;
+    color: var(--color-light) !important;
+    font-weight: bold;
     padding: 1rem;
+
+    &:hover {
+        background-color: var(--color-quaternary) !important;
+        color: var(--color-primary) !important;
+    }
 }
 
 #prompt-input {
     min-height: 10rem;
     field-sizing: content;
+    color: var(--color-primary);
+    font-weight: 600;
+    background-color: var(--color-light);
 }
