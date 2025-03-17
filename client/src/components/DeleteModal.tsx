@@ -13,7 +13,7 @@ const DeleteModal = (props: DeleteModalProps) => {
     return (
         <Modal show={props.show} onHide={props.handleShow}>
             <Modal.Body className="text-center">
-                <Button variant="danger" onClick={props.onDelete}>Delete</Button>
+                <Button title="Delete" data-cy="confirm-delete" variant="danger" onClick={props.onDelete}>Delete</Button>
             </Modal.Body>
         </Modal>
     )

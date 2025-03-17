@@ -7,12 +7,13 @@ import Form from 'react-bootstrap/Form';
 import { createNotebook } from "../api/notebookAPI.js";
 
 interface AddNotebookTabProps {
-    user_id: number;
     handleRefetch: () => void;
 }
 
 const AddNotebookTab = (props: AddNotebookTabProps) => {
 
+    const user = localStorage.getItem('user');
+    const user_id = user ? Number(JSON.stringify(JSON.parse(user).id)) : null;
     const [formShowing, setFormShowing] = useState(false);
     const [notebookTitle, setNotebookTitle] = useState('');
 
@@ -22,9 +23,9 @@ const AddNotebookTab = (props: AddNotebookTabProps) => {
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (props.user_id) {
+        if (user_id) {
             try {
-                await createNotebook(props.user_id, notebookTitle);
+                await createNotebook(user_id, notebookTitle);
                 setFormShowing(false);
                 props.handleRefetch();
             } catch {
@@ -39,7 +40,7 @@ const AddNotebookTab = (props: AddNotebookTabProps) => {
 
     const renderForm = () => {
         return (
-            <Form id="new-notebook-form" onSubmit={handleFormSubmit}>
+            <Form data-cy="new-notebook-form" id="new-notebook-form" onSubmit={handleFormSubmit}>
                 <Form.Group controlId="text">
                     <Form.Control
                         name="notebookTitle"
@@ -49,7 +50,7 @@ const AddNotebookTab = (props: AddNotebookTabProps) => {
                         onChange={handleInputChange}
                     />
                 </Form.Group>
-                <Button id='submit-new-notebook' type="submit">
+                <Button title="Submit" data-cy="submit-new-notebook" id='submit-new-notebook' type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M400-304 240-464l56-56 104 104 264-264 56 56-320 320Z" /></svg>
                 </Button>
             </Form>
@@ -57,9 +58,12 @@ const AddNotebookTab = (props: AddNotebookTabProps) => {
     };
 
     return (
-        <Col className='new-tab'>
+        <Col className='new-tab align-items-center'>
             {formShowing && renderForm()}
-            <Button id='add-notebook-button'
+            <Button
+                title="Add Notebook"
+                data-cy='add-notebook-button'
+                id='add-notebook-button'
                 onClick={() => setFormShowing(!formShowing)}>
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" /></svg>
             </Button>

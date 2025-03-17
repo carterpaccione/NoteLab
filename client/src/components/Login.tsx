@@ -47,9 +47,10 @@ const Login = () => {
   return (
     <Form
       id="login-form"
+      data-cy="login-form"
       onSubmit={handleFormSubmit}>
       <Form.Group>
-        <Form.Label>Username</Form.Label>
+        <Form.Label data-cy="label-username">Username</Form.Label>
         <Form.Control
           name="username"
           type="text"
@@ -59,7 +60,7 @@ const Login = () => {
         />
       </Form.Group>
       <Form.Group>
-        <Form.Label>Password</Form.Label>
+        <Form.Label data-cy="label-password">Password</Form.Label>
         <Form.Control
           name="password"
           type="password"
@@ -68,8 +69,15 @@ const Login = () => {
           onChange={handleInputChange}
         />
       </Form.Group>
-      {errorMessage && <p>{errorMessage}</p>}
-      <Button type="submit"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M268-240 42-466l57-56 170 170 56 56-57 56Zm226 0L268-466l56-57 170 170 368-368 56 57-424 424Zm0-226-57-56 198-198 57 56-198 198Z" /></svg></Button>
+      {errorMessage && <p id="error-message" data-cy="error-message">{errorMessage}</p>}
+      <Button
+        id="submit-login-button"
+        data-cy="submit-login-button"
+        type="submit"
+        title="Submit"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M268-240 42-466l57-56 170 170 56 56-57 56Zm226 0L268-466l56-57 170 170 368-368 56 57-424 424Zm0-226-57-56 198-198 57 56-198 198Z" /></svg>
+      </Button>
     </Form>
   );
 };

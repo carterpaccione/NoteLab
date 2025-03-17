@@ -3,13 +3,17 @@ import '../support/commands';
 import Header from '../../client/src/components/Header';
 
 
-describe('Header', () => {
-    it('should render the header', () => {
+describe('<Header/>', () => {
+    beforeEach((() => {
         cy.mount(
             <MemoryRouter>
                 <Header />
             </MemoryRouter>
-        );
-        cy.get('a').should('have.text', 'My App');
+        )
+    }));
+
+    it('should render the header', () => {
+        cy.get('#nav-title').should('have.text', 'Notebook');
+        cy.get('#nav-login').should('have.text', 'Login');
     });
 })

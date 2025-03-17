@@ -18,23 +18,38 @@
     align-items: center;
 
     width: 20rem;
-    /* max-width:max-content; */
 
-    /* background-color: #F1D592; */
     background-image: linear-gradient(to bottom, #F1D592, #EBC465);
     color: black;
     border-radius: 10px 20px 0 0;
     cursor: pointer;
 }
 
+.notebook-tab p {
+    margin: 0;
+    padding: .2rem;
+    font-weight: 500;
+}
+
 .notebook-tab :hover {
-    color: white;
+    color: var(--color-primary);
+
+    & p {
+        color: var(--color-primary);
+    }
 }
 
 .selected-notebook-tab {
     background-image: linear-gradient(to top, #F1D592, #EBC465);
+    
+    & p {
+        font-weight: bold;
+    }
 }
 
+.edit-title-button :hover {
+    cursor: help;
+}
 /* AddNotebookTab */
 
 .new-tab {

@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { createNote } from '../api/noteApi.js';
 
+import '../styles/noteform.css';
+
 interface NoteFormProps {
     notebookId: number;
     handleRefetch: () => void;
@@ -44,10 +46,12 @@ const NoteForm = (props: NoteFormProps) => {
     };
 
     return (
-        <Form onSubmit={handleFormSubmit}>
+        <Form data-cy="note-form" onSubmit={handleFormSubmit}>
             <Form.Group controlId="importance">
                 <Form.Label>Select Note Category</Form.Label>
-                <Form.Select onChange={handleSelectChange}>
+                <Form.Select
+                    data-cy="note-form-importance"
+                    onChange={handleSelectChange}>
                     <option value="Main">Main</option>
                     <option value="Highlight">Highlight</option>
                     <option value="Sticky">Code</option>
@@ -63,7 +67,7 @@ const NoteForm = (props: NoteFormProps) => {
                     placeholder="Enter note content"
                     onChange={handleInputChange} />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button data-cy="note-form-submit" variant="primary" type="submit" title="Submit">
                 Submit
             </Button>
         </Form>

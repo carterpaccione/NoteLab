@@ -13,12 +13,12 @@ const Header = () => {
 
   return (
     <Navbar id="header-container">
-      <Navbar.Brand href="/">My App</Navbar.Brand>
+      <Navbar.Brand href="/" id="nav-title" title="Home">Notebook</Navbar.Brand>
       <Nav>
         {token ? (
-          <Nav.Link onClick={() => { AuthService.logout(); navigate('/login'); }}>Logout</Nav.Link>
+          <Nav.Link id="nav-logout" title="Logout" onClick={() => { AuthService.logout(); navigate('/login'); }}>Logout</Nav.Link>
         ) : (
-          <Nav.Link href="/login">Login</Nav.Link>
+          <Nav.Link id="nav-login" title="Login" href="/login">Login</Nav.Link>
         )}
       </Nav>
     </Navbar>

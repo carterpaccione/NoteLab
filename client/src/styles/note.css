@@ -17,8 +17,11 @@
 #main-note-container {
     background-color: white;
     color: black;
-
     border: 1px solid black;
+
+    & p {
+        color: black;
+    }
 }
 
 #highlight-container {
@@ -27,14 +30,21 @@
 
     border: 1px solid black;
     border-radius: 10px 0 10px 0;
+
+    & p {
+        color: white !important;
+    }
 }
 
 #sticky-container {
     background-color: var(--sticky-color);
-    color: white;
 
     border: 1px solid black;
     border-radius: 0 10px 0 10px;
+
+    & code {
+        color: black !important;
+    }
 }
 
 #note-content {

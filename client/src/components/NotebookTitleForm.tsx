@@ -33,7 +33,7 @@ const NotebookTitleForm = (props: NotebookTitleFormProps) => {
     };
 
     return (
-        <Form id="new-notebook-form" onSubmit={handleFormSubmit}>
+        <Form id="new-notebook-form" data-cy="edit-notebook-form" onSubmit={handleFormSubmit}>
             <Form.Group>
                 <Form.Control
                     name='newTitle'
@@ -43,7 +43,7 @@ const NotebookTitleForm = (props: NotebookTitleFormProps) => {
                     onChange={handleInputChange}
                 />
             </Form.Group>
-            <Button id='submit-new-notebook' type="submit">
+            <Button data-cy="submit-new-notebook-title" id='submit-new-notebook' type="submit" title="Submit">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M400-304 240-464l56-56 104 104 264-264 56 56-320 320Z" /></svg>
             </Button>
         </Form>

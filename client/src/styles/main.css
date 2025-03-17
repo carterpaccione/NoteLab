@@ -25,8 +25,7 @@
 
 body {
     background-color: var(--color-primary);
-    /* font-family: var(--Outfit-VariableFont); */
-    font-family: 'LititaOne-Regular';
+    font-family: 'Outfit-VariableFont';
 }
 
 #root button {
@@ -40,4 +39,8 @@ body {
 #root p {
     word-break: break-all;
     white-space: normal;
+}
+
+#root .error-message {
+    color: red;
 }

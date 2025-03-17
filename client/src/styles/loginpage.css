@@ -1,3 +1,8 @@
+#login-page-container {
+    padding: 2rem;
+    margin-top: 5rem;
+}
+
 .login-page-row {
     display: flex;
     justify-content: center;
@@ -10,6 +15,25 @@
     margin: 1rem;
 }
 
+#login-page-banner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    background-image: url('https://static.vecteezy.com/system/resources/thumbnails/024/648/871/small_2x/cover-and-banner-of-working-desk-with-gadget-top-view-of-table-working-and-free-space-for-text-with-computer-laptop-notebook-coffee-cup-phone-and-paper-vector.jpg');
+    background-size: cover;
+    height: max-content;
+
+    padding-top: 10rem;
+}
+
+/* #login-page-banner .login-page-row {
+    position: relative;
+    bottom: 0;
+} */
+
 
 #button-col {
     display: flex;
@@ -19,15 +43,15 @@
 
 .login-page-button {
     width: 6rem !important;
-    background-color: var(--color-tertiary) !important;
-    color: var(--color-secondary) !important;
+    background-color: var(--color-secondary) !important;
+    color: var(--color-quaternary) !important;
     height: 4rem !important;
 
     font-weight: bold;
 
     &:hover {
         background-color: var(--color-quaternary) !important;
-        color: var(--color-tertiary) !important;
+        color: var(--color-secondary) !important;
     }
 }
 
@@ -46,7 +70,7 @@
 }
 
 .form-label {
-    color: var(--color-secondary);
+    color: var(--color-light);
     font-weight: bold;
 }
 

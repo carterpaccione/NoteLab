@@ -1,0 +1,44 @@
+{
+    "Notebooks": [
+        {
+            "id": 1,
+            "title": "Notebook 1",
+            "Notes": [
+                {
+                    "id": 1,
+                    "content": "Content 1",
+                    "importance": "MAIN",
+                    "notebookId": 1,
+                    "createdAt": "x"
+                },
+                {
+                    "id": 2,
+                    "content": "Content 2",
+                    "importance": "HIGHLIGHT",
+                    "notebookId": 1,
+                    "createdAt": "x"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "title": "Notebook 2",
+            "Notes": [
+                {
+                    "id": 3,
+                    "content": "Content 3",
+                    "importance": "MAIN",
+                    "notebookId": 2,
+                    "createdAt": "x"
+                },
+                {
+                    "id": 4,
+                    "content": "Content 4",
+                    "importance": "STICKy",
+                    "notebookId": 2,
+                    "createdAt": "x"
+                }
+            ]
+        }
+    ]
+}
