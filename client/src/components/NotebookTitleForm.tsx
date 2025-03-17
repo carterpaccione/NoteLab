@@ -28,7 +28,10 @@ const NotebookTitleForm = (props: NotebookTitleFormProps) => {
             props.handleClose();
             setNewTitle('');
         } catch (err) {
-            console.error(err);
+            if (err instanceof Error) {
+                console.error(err.message);
+            }
+            console.error('Failed to update notebook title');
         }
     };
 

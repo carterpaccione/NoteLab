@@ -41,7 +41,10 @@ const NoteForm = (props: NoteFormProps) => {
             props.handleRefetch();
             props.handleClose();
         } catch (err) {
-            console.error(err);
+            if (err instanceof Error) {
+                console.error(err.message);
+            }
+            console.error('Failed to create note');
         }
     };
 

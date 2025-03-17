@@ -101,7 +101,10 @@ const NoteComponent = (props: NoteProps) => {
             props.handleRefetch();
             setFormShow(false);
         } catch (err) {
-            console.error(err);
+            if (err instanceof Error) {
+                console.error(err.message);
+            }
+            console.error('Failed to update note content');
         }
     };
 
