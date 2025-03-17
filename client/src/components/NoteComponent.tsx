@@ -108,6 +108,18 @@ const NoteComponent = (props: NoteProps) => {
         }
     };
 
+    const handleTabKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Tab') {
+            e.preventDefault();
+            const { selectionStart, selectionEnd } = e.currentTarget;
+            const newValue = `${editNote.content.substring(0, selectionStart)}\t${editNote.content.substring(selectionEnd)}`;
+            setEditNote({
+                ...editNote,
+                content: newValue
+            });
+        }
+    }
+
     return (
         <Container id={`${setContainerProperties()}`} className='note-container'>
             <Row id='note-header' data-cy="note-header">
@@ -137,10 +149,10 @@ const NoteComponent = (props: NoteProps) => {
                 <Col id="note-content" data-cy="note-content">
                     {formShow ? (
                         <Form data-cy="update-note-form" onSubmit={handleUpdateNoteContent}>
-                            <Form.Group controlId="importance">
+                            <Form.Group>
                                 {renderOptions()}
                             </Form.Group>
-                            <Form.Group controlId="noteContent">
+                            <Form.Group>
                                 <Form.Control
                                     id="note-form-content"
                                     data-cy="note-form-content"
@@ -148,6 +160,7 @@ const NoteComponent = (props: NoteProps) => {
                                     name="content"
                                     value={editNote.content}
                                     onChange={handleInputChange}
+                                    onKeyDown={handleTabKey}
                                 />
                             </Form.Group>
                             <Button
@@ -164,7 +177,7 @@ const NoteComponent = (props: NoteProps) => {
                                 <code>{props.note.content}</code>
                             </pre>
                         ) : (
-                            <p >{props.note.content}</p>
+                            <pre>{props.note.content}</pre>
                         )
                     )}
                 </Col>

@@ -19,8 +19,9 @@
     color: black;
     border: 1px solid black;
 
-    & p {
+    & pre {
         color: black;
+        font-family: 'Outfit-VariableFont';
     }
 }
 
@@ -31,8 +32,9 @@
     border: 1px solid black;
     border-radius: 10px 0 10px 0;
 
-    & p {
+    & pre {
         color: white !important;
+        font-family: 'Outfit-VariableFont';
     }
 }
 

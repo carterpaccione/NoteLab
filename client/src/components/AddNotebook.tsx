@@ -41,7 +41,7 @@ const AddNotebookTab = (props: AddNotebookTabProps) => {
     const renderForm = () => {
         return (
             <Form data-cy="new-notebook-form" id="new-notebook-form" onSubmit={handleFormSubmit}>
-                <Form.Group controlId="text">
+                <Form.Group>
                     <Form.Control
                         name="notebookTitle"
                         type="text"
