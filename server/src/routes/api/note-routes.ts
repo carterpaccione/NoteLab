@@ -1,18 +1,24 @@
 import express from 'express';
 import type { Request, Response } from 'express';
 import { Note } from '../../models/note.js';
+import { CustomRequest } from '../../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 // POST /api/notes - Create a new note
 
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', async (req: CustomRequest, res: Response) => {
+    const reqUser = req.user;
+    if (!reqUser) {
+        return res.status(401).json({ message: 'Unauthorized: no Req' });
+    }
     console.log(req.body);
     try {
         const note = await Note.create({
             content: req.body.content,
             notebook_id: req.body.notebook_id,
             importance: req.body.importance,
+            user_id: reqUser.id
         })
         return res.status(201).json({ data: note });
     } catch (err) {

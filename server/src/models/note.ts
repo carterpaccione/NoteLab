@@ -10,6 +10,7 @@ interface NoteAttributes {
     id: number;
     content: string;
     notebook_id: number;
+    user_id: number;
     importance?: ImportanceLevel;
     createdAt?: Date;
 }
@@ -22,6 +23,7 @@ export class Note
     public id!: number;
     public content!: string;
     public notebook_id!: number;
+    public user_id!: number;
     public importance?: ImportanceLevel;
 }
 
@@ -38,6 +40,11 @@ export function NoteFactory(sequelize: Sequelize): typeof Note {
                 allowNull: false,
             },
             notebook_id: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+            },
+
+            user_id: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
             },
@@ -60,6 +67,6 @@ export function NoteFactory(sequelize: Sequelize): typeof Note {
             sequelize,
         }
     );
-    
+
     return Note;
 }

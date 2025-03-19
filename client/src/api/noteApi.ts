@@ -1,10 +1,11 @@
-const createNote = async (notebookId: number, content: string, _importance: string) => {
+const createNote = async (notebookId: number, content: string, _importance: string, token: string) => {
     try {
         const response = await fetch(`/api/notes`, {
             method: 'POST',
             body: JSON.stringify({ notebook_id: notebookId, content: content, importance: _importance }),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
         });
 
@@ -22,12 +23,13 @@ const createNote = async (notebookId: number, content: string, _importance: stri
     }
 };
 
-const deleteNote = async (noteId: number) => {
+const deleteNote = async (noteId: number, token: string) => {
     try {
         const response = await fetch(`/api/notes/${noteId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
         });
 
@@ -45,13 +47,14 @@ const deleteNote = async (noteId: number) => {
     }
 };
 
-const updateNote = async (noteId: number, content: string, importance: string) => {
+const updateNote = async (noteId: number, content: string, importance: string, token: string) => {
     try {
         const response = await fetch(`/api/notes/${noteId}`, {
             method: 'PUT',
             body: JSON.stringify({ content: content, importance: importance }),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         });
 

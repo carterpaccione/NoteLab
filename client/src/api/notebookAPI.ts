@@ -1,9 +1,10 @@
-const fetchNotebook = async (notebookId: number) => {
+const fetchNotebook = async (notebookId: number, token: string) => {
     try {
         const response = await fetch(`/api/notebooks/${notebookId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
         });
 
@@ -21,13 +22,14 @@ const fetchNotebook = async (notebookId: number) => {
     }
 };
 
-const updateNotebookTitle = async (notebookId: number, title: string) => {
+const updateNotebookTitle = async (notebookId: number, title: string, token: string) => {
     try {
         const response = await fetch(`/api/notebooks/${notebookId}`, {
             method: 'PUT',
             body: JSON.stringify({ title: title}),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
         });
         
@@ -45,12 +47,13 @@ const updateNotebookTitle = async (notebookId: number, title: string) => {
     }
 };
 
-const deleteNotebook = async (notebookId: number) => {
+const deleteNotebook = async (notebookId: number, token: string) => {
     try {
         const response = await fetch(`/api/notebooks/${notebookId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
         });
 
@@ -68,13 +71,14 @@ const deleteNotebook = async (notebookId: number) => {
     }
 };
 
-const createNotebook = async (userId: number, title: string) => {
+const createNotebook = async (title: string, token: string) => {
     try {
         const response = await fetch(`/api/notebooks`, {
             method: 'POST',
-            body: JSON.stringify({ user_id: userId, title: title }),
+            body: JSON.stringify({ title: title }),
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
             },
         });
 

@@ -20,15 +20,15 @@ export interface PageProps {
 }
 
 const NotebookContent = (props: PageProps) => {
-    const [notebookData, setNotebookData] = useState<Notebook | null>(null);
+    const token = localStorage.getItem('token');
 
+    const [notebookData, setNotebookData] = useState<Notebook | null>(null);
     const [mainNotes, setMainNotes] = useState<Note[]>([]);
     const [sideNotes, setsideNotes] = useState<Note[]>([]);
-    // const [error, setError] = useState<string | null>(null);
-    // Create Note Modal
     const [showModal, setShowModal] = useState<boolean>(false);
     const handleModalClose = () => setShowModal(false);
     const handleModalShow = () => setShowModal(true);
+    
     // Delete Notebook Modal
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
     const handleShowDeleteModal = () => {
@@ -37,14 +37,18 @@ const NotebookContent = (props: PageProps) => {
     }
 
     const fetchNotebookData = useCallback(async () => {
-        try {
-            const data = await fetchNotebook(props.notebookId);
-            setNotebookData(data.data);
+        if (token) {
+            try {
+                const data = await fetchNotebook(props.notebookId, token);
+                setNotebookData(data.data);
+            }
+            catch {
+                console.error("Error fetching notebook data");
+            }
+        } else {
+            console.error("User ID is undefined");
         }
-        catch {
-            console.error("Error fetching notebook data");
-        }
-    }, [props.notebookId]);
+    }, [props.notebookId, token]);
 
     const sortNotes = (notes: Note[]) => {
         const mainNotes: Note[] = [];
@@ -62,7 +66,13 @@ const NotebookContent = (props: PageProps) => {
     };
 
     const handleDeleteButton = async () => {
-        await deleteNotebook(props.notebookId);
+        if (token) {
+            try {
+                await deleteNotebook(props.notebookId, token);
+            } catch {
+                console.error("Error deleting notebook");
+            }
+        }
         props.handleRefetch();
     };
 

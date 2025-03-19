@@ -1,6 +1,6 @@
 const fetchSignUp = async (email: string, username: string, password: string) => {
     try {
-        const response = await fetch('/api/users', {
+        const response = await fetch('/auth/register', {
             method: 'POST',
             body: JSON.stringify({
                 email: email,
@@ -52,15 +52,18 @@ const fetchLogin = async (username: string, password: string) => {
     }
 };
 
-const fetchUserData = async (userId: number | undefined) => {
-    if (userId === undefined) {
-        throw new Error("User ID is undefined");
+const fetchUserData = async (token: string) => {
+
+    if (!token || token === '') {
+        throw new Error("Unauthorized");
     }
+
     try {
-        const response = await fetch(`/api/users/${userId}`, {
+        const response = await fetch(`/api/users/me`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         });
 

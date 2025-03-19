@@ -13,6 +13,8 @@ interface NoteFormProps {
 }
 
 const NoteForm = (props: NoteFormProps) => {
+
+    const token = localStorage.getItem('token');
     const [newNote, setNewNote] = useState({
         notebook_id: props.notebookId,
         content: "",
@@ -20,10 +22,6 @@ const NoteForm = (props: NoteFormProps) => {
     });
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // get the key that is pressed to do that we need to destructure the event object
-        // and get the name and value of the target element
-        console.log(e.target);
-
         const { name, value } = e.target;
         setNewNote({
             ...newNote,
@@ -52,15 +50,17 @@ const NoteForm = (props: NoteFormProps) => {
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            await createNote(newNote.notebook_id, newNote.content, newNote.importance);
-            props.handleRefetch();
-            props.handleClose();
-        } catch (err) {
-            if (err instanceof Error) {
-                console.error(err.message);
+        if (token) {
+            try {
+                await createNote(newNote.notebook_id, newNote.content, newNote.importance, token);
+                props.handleRefetch();
+                props.handleClose();
+            } catch (err) {
+                if (err instanceof Error) {
+                    console.error(err.message);
+                }
+                console.error('Failed to create note');
             }
-            console.error('Failed to create note');
         }
     };
 

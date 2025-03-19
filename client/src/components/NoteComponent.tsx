@@ -19,6 +19,8 @@ interface NoteProps {
 
 const NoteComponent = (props: NoteProps) => {
 
+    const token = localStorage.getItem('token');
+
     const [editNote, setEditNote] = useState({
         notebook_id: props.note.notebookId,
         content: props.note.content,
@@ -77,13 +79,22 @@ const NoteComponent = (props: NoteProps) => {
     }
 
     const handleDeleteButton = async () => {
-        const response = await deleteNote(props.note.id);
-        if (response.error) {
-            console.error(response.error);
-        } else {
-            props.handleRefetch();
-        }
-    };
+        if (token) {
+            try {
+                const response = await deleteNote(props.note.id, token);
+                if (response.error) {
+                    console.error(response.error);
+                } else {
+                    props.handleRefetch();
+                }
+            } catch (err) {
+                if (err instanceof Error) {
+                    console.error(err.message);
+                }
+                console.error('Failed to delete note');
+            }
+        };
+    }
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -96,15 +107,17 @@ const NoteComponent = (props: NoteProps) => {
 
     const handleUpdateNoteContent = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            await updateNote(props.note.id, editNote.content, editNote.importance);
-            props.handleRefetch();
-            setFormShow(false);
-        } catch (err) {
-            if (err instanceof Error) {
-                console.error(err.message);
+        if (token) {
+            try {
+                await updateNote(props.note.id, editNote.content, editNote.importance, token);
+                props.handleRefetch();
+                setFormShow(false);
+            } catch (err) {
+                if (err instanceof Error) {
+                    console.error(err.message);
+                }
+                console.error('Failed to update note content');
             }
-            console.error('Failed to update note content');
         }
     };
 

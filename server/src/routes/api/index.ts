@@ -4,11 +4,13 @@ import { notebookRouter } from './notebook-routes.js';
 import { noteRouter } from './note-routes.js';
 import { openAIRouter } from './openai-routes.js';
 
+import authMethod from '../../middleware/authMiddleware.js';
+
 const router = Router();
 
-router.use('/users', userRouter);
-router.use('/notebooks', notebookRouter);
-router.use('/notes', noteRouter);
+router.use('/users', authMethod, userRouter);
+router.use('/notebooks', authMethod, notebookRouter);
+router.use('/notes', authMethod, noteRouter);
 router.use('/openai', openAIRouter);
 
 export default router;

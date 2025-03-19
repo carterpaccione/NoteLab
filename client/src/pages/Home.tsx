@@ -51,7 +51,7 @@ const Home = () => {
             <OpenAIChat />
           </Col>) : null}
         <Col {...(showAIColumn ? { sm: { span: 12, order: 2 }, md: { span: 12, order: 2 }, lg: { span: 8, order: 2 } } : { sm: { span: 12, order: 1 }, md: { span: 12, order: 1 }, lg: { span: 12, order: 1 } })}>
-          {user && <NotebookComponent user_id={user.id} />}
+          {user && <NotebookComponent />}
         </Col>
       </Row>
     </Container>

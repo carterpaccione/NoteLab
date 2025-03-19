@@ -12,8 +12,7 @@ interface AddNotebookTabProps {
 
 const AddNotebookTab = (props: AddNotebookTabProps) => {
 
-    const user = localStorage.getItem('user');
-    const user_id = user ? Number(JSON.stringify(JSON.parse(user).id)) : null;
+    const token = localStorage.getItem('token');
     const [formShowing, setFormShowing] = useState(false);
     const [notebookTitle, setNotebookTitle] = useState('');
 
@@ -23,9 +22,9 @@ const AddNotebookTab = (props: AddNotebookTabProps) => {
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (user_id) {
+        if (token) {
             try {
-                await createNotebook(user_id, notebookTitle);
+                await createNotebook(notebookTitle, token);
                 setFormShowing(false);
                 props.handleRefetch();
             } catch {

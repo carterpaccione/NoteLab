@@ -8,18 +8,16 @@ import NotebookContent from './NotebookContent';
 import { fetchUserData } from '../api/userAPI';
 import { User, Notebook } from '../models/dataModels';
 
-interface NotebookComponentProps {
-    user_id: number;
-}
 
-const NotebookComponent = (props: NotebookComponentProps) => {
+const NotebookComponent = () => {
     const [userData, setUserData] = useState<User | null>(null);
     const [currentNotebook, setCurrentNotebook] = useState<number | null>(null);
     const [error, setError] = useState<string | null>(null);
 
     const fetchData = useCallback(async () => {
-        if (props.user_id) {
-            const fetchedData = await fetchUserData(props.user_id);
+        const token = localStorage.getItem('token');
+        if (token) {
+            const fetchedData = await fetchUserData(token);
             if (!fetchedData.data.Notebooks) {
                 setCurrentNotebook(null);
             } else {
@@ -30,7 +28,7 @@ const NotebookComponent = (props: NotebookComponentProps) => {
                 }
             }
         }
-    }, [props.user_id, currentNotebook]);
+    }, [currentNotebook]);
 
     useEffect(() => {
         try {
@@ -38,7 +36,7 @@ const NotebookComponent = (props: NotebookComponentProps) => {
         } catch (error) {
             setError((error as Error).message);
         }
-    }, [props.user_id, fetchData]);
+    }, [fetchData]);
 
     return (
         <Container fluid>

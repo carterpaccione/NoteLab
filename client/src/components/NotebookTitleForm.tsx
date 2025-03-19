@@ -14,6 +14,8 @@ interface NotebookTitleFormProps {
 
 const NotebookTitleForm = (props: NotebookTitleFormProps) => {
 
+    const token = localStorage.getItem('token');
+
     const [newTitle, setNewTitle] = useState<string>(props.title);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,16 +24,20 @@ const NotebookTitleForm = (props: NotebookTitleFormProps) => {
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            await updateNotebookTitle(props.notebookId, newTitle);
-            props.handleRefetch();
-            props.handleClose();
-            setNewTitle('');
-        } catch (err) {
-            if (err instanceof Error) {
-                console.error(err.message);
+        if (token) {
+            try {
+                await updateNotebookTitle(props.notebookId, newTitle, token);
+                props.handleRefetch();
+                props.handleClose();
+                setNewTitle('');
+            } catch (err) {
+                if (err instanceof Error) {
+                    console.error(err.message);
+                }
+                console.error('Failed to update notebook title');
             }
-            console.error('Failed to update notebook title');
+        } else {
+            console.error('User ID is undefined');
         }
     };
 

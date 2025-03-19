@@ -1,8 +1,9 @@
 import express from 'express';
 import sequelize from './config/connection.js';
 import routes from './routes/index.js';
+import './models/index.js'; // Import all models to sync them
 
-import './models/index.js';
+// import authMiddleware from './middleware/authMiddleware.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -16,6 +17,12 @@ app.get('/test', (_req, res) => {
     console.log('Test route hit');
     res.send('Test route hit');
 });
+
+// app.use('/api/test/me', authMiddleware, (_req, res) => {
+//     console.log('Test route hit');
+//     res.send('Test route hit');
+// });
+
 
 app.use((req, _res, next) => {
     console.log(`Request: ${req.method} ${req.path}`);
