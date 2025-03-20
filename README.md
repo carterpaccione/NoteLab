@@ -53,48 +53,216 @@ Notebook App is a feature-rich note-taking application designed for developers a
 
 ## API Documentation
 
-- Endpoints:
-  - Auth Routes:
-    - POST /auth/register - Register a new user
+### Endpoints:
+  
+  - **Auth Routes:**
+    
+    #### POST /auth/register - Register a new user
+        
+    - Request Body:
+
+        ```json
+        { 
+            "email": "email@email.com", 
+            "username": "username", 
+            "password": "password"
+        }
+    
+    - Response:
+
+       ```json
+       {
+            "data": {
+                "id": 1,
+                "email": "email@email.com",
+                "username": "username",
+                "updatedAt": "Date",
+                "createdAt": "Date"
+            }
+        }
+    #### POST /auth/login - Authenticate user
+
+    - Request Body:
+      
+      ```json
+        {
+            "username": "username",
+            "password": "password"
+        }
+    - Response: 
+      
+      ```json
+        {
+            "token": "JWT.token.string"
+        }
+  - **User Routes:**
+    
+    #### GET /api/users/me - Get user profile
+
+      - Headers: Authorization: Bearer *token*
+      - Response:
+
+        ```json
+        {
+            "data": {
+                "id": 1,
+                "username": "username",
+                "email": "email",
+                "createdAt": "Date",
+                "updatedAt": "Date",
+                "Notebooks": [
+                    {
+                        "id": 1,
+                        "title": "Notebook 1",
+                        "createdAt": "Date"
+                    },
+                    {
+                        "id": 2,
+                        "title": "Notebook 2",
+                        "createdAt": "Date"
+                    }
+                ]
+            }
+        }
+    #### DELETE /api/users/me - Delete user profile
+      - Headers: Authorization: Bearer *token*
+      - Response:
+
+        ```json
+        {
+            "message": "User deleted",
+            "deletedUserId": 1,
+        }
+  - **Notebook Routes:**
+
+    #### GET /api/notebooks/:id - Get a notebook by ID
+      - Headers: Authorization: Bearer *token*
+      - Response:
+
+        ```json
+        {
+            "data": {
+                "id": 1,
+                "title": "Title",
+                "user_id": 1,
+                "createdAt": "Date",
+                "updatedAt": "Date",
+                "Notes": [
+                    {
+                        "id": 1,
+                        "content": "This is a note",
+                        "importance": "Main",
+                        "createdAt": "Date"
+                    }
+                ]
+            }
+        }
+    #### POST /api/notebooks - Create a new notebook
+      - Headers: Authorization: Bearer *token*
       - Request Body:
+
+        ```json
+        {
+            "title": "Notebook Title"
+        }
       - Response:
-    - POST /auth/login - Authenticate user
+
+        ```json
+        {
+            "data": {
+                "createdAt": "Date",
+                "id": 186,
+                "title": "Test 23",
+                "user_id": 1,
+                "updatedAt": "Date"
+            }
+        }
+    #### PUT /api/notebooks/:id - Update a notebook title by ID
+      - Headers: Authorization: Bearer *token*
       - Request Body:
+
+        ```json
+        {
+            "title": "New Title"
+        }
       - Response:
-  - User Routes:
-    - GET /api/users/me - Get user profile
+        ```json
+        {
+            "data": {
+                "id": 186,
+                "title": "Test 32",
+                "user_id": 1,
+                "createdAt": "Date",
+                "updatedAt": "Date"
+            }
+        }
+    #### DELETE /api/notebooks/:id - Delete a notebook by ID
       - Headers: Authorization: Bearer *token*
       - Response:
-    - DELETE /api/users/me - Delete user profile
+        ```json
+        {
+            "message": "Notebook Deleted",
+            "deletedNotebookId": 1
+        }
+  - **Note Routes:**
+    #### POST /api/notes - Create a new note
+      - Headers: Authorization: Bearer *token*
+      - Request Body:
+
+        ```json
+        { 
+            "content": "Note Content",
+            "notebook_id": 1,
+            "importance": "status from selector",
+            "user_id": 1
+        }
+      - Response:
+
+        ```json
+        {
+            "data": {
+                "createdAt": "Date",
+                "id": 2,
+                "content": "This is a new note",
+                "notebook_id": 1,
+                "importance": "Main",
+                "user_id": 1,
+                "updatedAt": "Date"
+            }
+        }
+    #### PUT /api/notes/:id - Update a note by ID
+      - Headers: Authorization: Bearer *token*
+      - Request Body: (both optional)
+
+        ```json
+        {
+            "content": "New Content",
+            "importance": "New Status"
+        }
+      - Response:
+
+        ```json
+        {
+            "data": {
+                "id": 2,
+                "content": "This is new content",
+                "notebook_id": 1,
+                "user_id": 1,
+                "importance": "Highlight",
+                "createdAt": "Date",
+                "updatedAt": "Date"
+            }
+        }
+    #### DELETE /api/notes/:id - Delete a note by ID
       - Headers: Authorization: Bearer *token*
       - Response:
-  - Notebook Routes:
-    - GET /api/notebooks/:id - Get a notebook by ID
-      - Headers: Authorization: Bearer *token*
-      - Response:
-    - POST /api/notebooks - Create a new notebook
-      - Headers: Authorization: Bearer *token*
-      - Request Body: { "title": "Notebook Title" }
-      - Response:
-    - PUT /api/notebooks/:id - Update a notebook title by ID
-      - Headers: Authorization: Bearer *token*
-      - Request Body: { "title": "Notebook Title" }
-      - Response:
-    - DELETE /api/notebooks/:id - Delete a notebook by ID
-      - Headers: Authorization: Bearer *token*
-      - Response:
-  - Note Routes:
-    - POST /api/notes - Create a new note
-      - Headers: Authorization: Bearer *token*
-      - Request Body: { "content": "Note Content", "notebook_id:" ID, "importance": "status from selector", "user_id": ID }
-      - Response:
-    - PUT /api/notes/:id - Update a note by ID
-      - Headers: Authorization: Bearer *token*
-      - Request Body: (both optional) { "content": "New Content", "importance": "new status" }
-      - Response:
-    - DELETE /api/notes/:id - Delete a note by ID
-      - Headers: Authorization: Bearer *token*
-      - Response:
+
+        ```json
+        {
+            "message": "Note Deleted",
+            "deletedNoteId": 2 
+        }
+
 
 ## Tests
 
