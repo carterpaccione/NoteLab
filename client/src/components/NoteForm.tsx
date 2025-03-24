@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { createNote } from '../api/noteApi.js';
+import AuthService from '../utils/auth.js';
 
 import '../styles/noteform.css';
 
@@ -14,7 +15,7 @@ interface NoteFormProps {
 
 const NoteForm = (props: NoteFormProps) => {
 
-    const token = localStorage.getItem('token');
+    const token = AuthService.getToken();
     const [newNote, setNewNote] = useState({
         notebook_id: props.notebookId,
         content: "",

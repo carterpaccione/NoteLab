@@ -1,9 +1,7 @@
 import express from 'express';
-import type { Response } from 'express';
+import type { Request, Response } from 'express';
 import { User } from '../../models/user.js';
 import { Notebook } from '../../models/notebook.js';
-
-import { CustomRequest } from '../../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -11,8 +9,8 @@ const router = express.Router();
 
 // GET /api/users/me - Get the current user by token
 
-router.get('/me', async (req: CustomRequest, res: Response) => {
-    const reqUser = req.user;
+router.get('/me', async (req: Request, res: Response) => {
+    const reqUser = req.body.token;
     if (!reqUser) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -44,8 +42,8 @@ router.get('/me', async (req: CustomRequest, res: Response) => {
 
 // DELETE /api/users/me - Delete the current user by token
 
-router.delete('/me', async (req: CustomRequest, res: Response) => {
-    const reqUser = req.user;
+router.delete('/me', async (req: Request, res: Response) => {
+    const reqUser = req.body.token;
     if (!reqUser) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -55,7 +53,7 @@ router.delete('/me', async (req: CustomRequest, res: Response) => {
         if (deletedUser) {
             return res.status(200).json({
                 message: 'User deleted',
-                deletedUser: deletedUser
+                deletedUserId: reqUser.id
             });
         }
         return res.status(404).json({ message: 'User not found' });
@@ -70,11 +68,11 @@ router.delete('/me', async (req: CustomRequest, res: Response) => {
 
 // GET /api/users - Get all users
 
-router.get('/', async (req: CustomRequest, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
 
     // So only the user with the username 'carter' can access this route for test purposes
     console.log("GET /api/users");
-    const reqUser = req.user;
+    const reqUser = req.body.token;
     if (!reqUser || reqUser.username !== 'carter') {
         return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -96,11 +94,11 @@ router.get('/', async (req: CustomRequest, res: Response) => {
 
 // GET /api/users/:id - Get a user by ID
 
-router.get('/:id', async (req: CustomRequest, res: Response) => {
+router.get('/:id', async (req: Request, res: Response) => {
 
     // So only the user with the username 'carter' can access this route for test purposes
     console.log("GET /api/users");
-    const reqUser = req.user;
+    const reqUser = req.body.token;
     if (!reqUser || reqUser.username !== 'carter') {
         return res.status(401).json({ message: 'Unauthorized' });
     }
@@ -133,8 +131,8 @@ router.get('/:id', async (req: CustomRequest, res: Response) => {
 
 // DELETE /api/users - Delete a user by ID
 
-router.delete('/:id', async (req: CustomRequest, res: Response) => {
-    const reqUser = req.user;
+router.delete('/:id', async (req: Request, res: Response) => {
+    const reqUser = req.body.token;
     if (!reqUser || reqUser.username !== 'carter') {
         return res.status(401).json({ message: 'Unauthorized' });
     }

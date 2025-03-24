@@ -1,14 +1,13 @@
 import express from 'express';
 import type { Request, Response } from 'express';
 import { Note } from '../../models/note.js';
-import { CustomRequest } from '../../middleware/authMiddleware.js';
 
 const router = express.Router();
 
 // POST /api/notes - Create a new note
 
-router.post('/', async (req: CustomRequest, res: Response) => {
-    const reqUser = req.user;
+router.post('/', async (req: Request, res: Response) => {
+    const reqUser = req.body.token;
     if (!reqUser) {
         return res.status(401).json({ message: 'Unauthorized: no Req' });
     }
@@ -31,6 +30,10 @@ router.post('/', async (req: CustomRequest, res: Response) => {
 // PUT /api/notes/:id - Update a note by ID
 
 router.put('/:id', async (req: Request, res: Response) => {
+    const reqUser = req.body.token;
+    if (!reqUser) {
+        return res.status(401).json({ message: 'Unauthorized: no Req' });
+    }
     try {
         const note = await Note.findByPk(req.params.id);
         if (note) {
@@ -54,10 +57,14 @@ router.put('/:id', async (req: Request, res: Response) => {
 // DELETE /api/notes/:id - Delete a note by ID
 
 router.delete('/:id', async (req: Request, res: Response) => {
+    const reqUser = req.body.token;
+    if (!reqUser) {
+        return res.status(401).json({ message: 'Unauthorized: no Req' });
+    }
     try {
         const deletedNote = await Note.destroy({ where: { id: req.params.id } });
         if (deletedNote > 0) { // > 0 because destroy() returns the number of rows deleted
-            return res.status(200).json({ message: 'Note deleted' });
+            return res.status(200).json({ message: 'Note Deleted', deletedNoteId: req.params.id });
         }
         return res.status(404).json({ message: 'Note not found' });
     } catch (err) {

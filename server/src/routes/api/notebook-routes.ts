@@ -1,15 +1,14 @@
 import express from 'express';
-import type { Response } from 'express';
+import type { Request, Response } from 'express';
 import { Notebook } from '../../models/notebook.js';
 import { Note } from '../../models/note.js';
-import { CustomRequest } from '../../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// GET /api/:id - Get a notebook by ID
+// GET /api/notebooks/:id - Get a notebook by ID
 
-router.get('/:id', async (req: CustomRequest, res: Response) => {
-    const reqUser = req.user;
+router.get('/:id', async (req: Request, res: Response) => {
+    const reqUser = req.body.token;
     if (!reqUser) {
         return res.status(401).json({ message: 'Not Logged In' });
     }
@@ -40,8 +39,8 @@ router.get('/:id', async (req: CustomRequest, res: Response) => {
 
 // POST /api/notebooks - Create a new notebook
 
-router.post('/', async (req: CustomRequest, res: Response) => {
-    const reqUser = req.user;
+router.post('/', async (req: Request, res: Response) => {
+    const reqUser = req.body.token;
     if (!reqUser) {
         return res.status(401).json({ message: 'Not Logged In' });
     }
@@ -60,8 +59,8 @@ router.post('/', async (req: CustomRequest, res: Response) => {
 
 // PUT /api/notebooks/:id - Update a notebook title by ID
 
-router.put('/:id', async (req: CustomRequest, res: Response) => {
-    const reqUser = req.user;
+router.put('/:id', async (req: Request, res: Response) => {
+    const reqUser = req.body.token;
     if (!reqUser) {
         return res.status(401).json({ message: 'Not Logged In' });
     }
@@ -85,8 +84,8 @@ router.put('/:id', async (req: CustomRequest, res: Response) => {
 
 // DELETE /api/notebooks/:id - Delete a notebook by ID
 
-router.delete('/:id', async (req: CustomRequest, res: Response) => {
-    const reqUser = req.user;
+router.delete('/:id', async (req: Request, res: Response) => {
+    const reqUser = req.body.token;
     if (!reqUser) {
         return res.status(401).json({ message: 'Not Logged In' });
     }
@@ -94,7 +93,7 @@ router.delete('/:id', async (req: CustomRequest, res: Response) => {
     try {
         const deletedNotebook = await Notebook.destroy({ where: { id: req.params.id, user_id: reqUser.id } });
         if (deletedNotebook) {
-            return res.status(200).json({ message: 'Notebook Deleted', detedNotebook: deletedNotebook });
+            return res.status(200).json({ message: 'Notebook Deleted', deletedNotebookId: req.params.id });
         }
         return res.status(404).json({ message: 'Notebook not found' });
     } catch (err) {

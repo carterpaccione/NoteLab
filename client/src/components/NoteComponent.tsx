@@ -10,6 +10,7 @@ import '../styles/note.css';
 
 import { Note } from '../models/dataModels.js';
 import { deleteNote, updateNote } from '../api/noteApi.js';
+import AuthService from '../utils/auth.js';
 
 import DeleteModal from './DeleteModal';
 interface NoteProps {
@@ -19,7 +20,7 @@ interface NoteProps {
 
 const NoteComponent = (props: NoteProps) => {
 
-    const token = localStorage.getItem('token');
+    const token = AuthService.getToken();
 
     const [editNote, setEditNote] = useState({
         notebook_id: props.note.notebookId,

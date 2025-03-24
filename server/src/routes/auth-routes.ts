@@ -46,7 +46,7 @@ router.post('/register', async (req: Request, res: Response) => {
             username: req.body.username,
             password: req.body.password,
         });
-        return res.status(201).json({ data: user });
+        return res.status(201).json({ message: "User Created", user_id: user.id });
     } catch (err) {
         return res.status(400).json({
             message: (err as Error).message

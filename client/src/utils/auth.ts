@@ -8,12 +8,13 @@ export interface UserToken {
 }
 
 class AuthService {
-  getProfile() {
-    return jwtDecode<UserToken>(this.getToken() || "");
+  getProfile(): UserToken | null {
+    const token = this.getToken();
+    return token ? jwtDecode<UserToken>(token) : null;
   }
 
-  loggedIn() {
-    const token = localStorage.getItem("token");
+  loggedIn(): boolean {
+    const token = this.getToken();
     return !!token && !this.isTokenExpired(token);
   }
 
@@ -29,18 +30,21 @@ class AuthService {
     }
   }
 
-  getToken() {
+  getToken(): string | null{
     return localStorage.getItem("token");
   }
 
-  login(token: string) {
+  login(token: string, setCurrentUser: (user: UserToken | null) => void) {
     localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(jwtDecode<UserToken>(token)));
+    const user = jwtDecode<UserToken>(token);
+    setCurrentUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
   }
 
-  logout() {
+  logout(setCurrentUser: (user: UserToken | null) => void) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    setCurrentUser(null);
     localStorage.removeItem("problemResult");
     localStorage.removeItem("summaryResult");
   }

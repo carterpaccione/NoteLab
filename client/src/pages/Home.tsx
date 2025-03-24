@@ -8,18 +8,20 @@ import Button from 'react-bootstrap/Button';
 
 import '../styles/home.css';
 
-import AuthService, { UserToken } from '../utils/auth';
+import AuthService from '../utils/auth';
+import { UserContextType, useCurrentUser } from '../utils/context.js';
+
 import OpenAIChat from "../components/OpenAIChat";
 import NotebookComponent from '../components/NotebookComponent';
 
 const Home = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserToken>({
-    id: 0,
-    username: '',
-    iat: 0,
-    exp: 0,
-  });
+  const userContext = useCurrentUser();
+  if (!userContext?.currentUser) {
+    console.log("useUserContext must be used within a UserProvider");
+  } 
+  const { setCurrentUser } = userContext as UserContextType;
+
   const [showAIColumn, setShowAIColumn] = useState(false);
 
   useEffect(() => {
@@ -27,9 +29,9 @@ const Home = () => {
       navigate('/login');
     } else {
       const authorizedUser = AuthService.getProfile();
-      setUser(authorizedUser);
+      setCurrentUser(authorizedUser);
     }
-  }, [navigate]);
+  }, [navigate, setCurrentUser]);
 
 
   return (
@@ -41,7 +43,7 @@ const Home = () => {
           </Button>
         </Col>
         <Col id='welcome-message-col' className='text-center'>
-          <h1>Welcome {user.username}</h1>
+          <h1>Welcome {userContext?.currentUser?.username}</h1>
         </Col>
       </Row>
       <Row id="content-row">
@@ -51,7 +53,7 @@ const Home = () => {
             <OpenAIChat />
           </Col>) : null}
         <Col {...(showAIColumn ? { sm: { span: 12, order: 2 }, md: { span: 12, order: 2 }, lg: { span: 8, order: 2 } } : { sm: { span: 12, order: 1 }, md: { span: 12, order: 1 }, lg: { span: 12, order: 1 } })}>
-          {user && <NotebookComponent />}
+          {userContext && <NotebookComponent />}
         </Col>
       </Row>
     </Container>

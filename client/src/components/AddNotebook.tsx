@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 import { createNotebook } from "../api/notebookAPI.js";
+import AuthService from "../utils/auth.js";
 
 interface AddNotebookTabProps {
     handleRefetch: () => void;
@@ -12,7 +13,7 @@ interface AddNotebookTabProps {
 
 const AddNotebookTab = (props: AddNotebookTabProps) => {
 
-    const token = localStorage.getItem('token');
+    const token = AuthService.getToken();
     const [formShowing, setFormShowing] = useState(false);
     const [notebookTitle, setNotebookTitle] = useState('');
 

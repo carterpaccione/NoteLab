@@ -11,7 +11,7 @@ export interface CustomRequest extends Request {
     user?: UserToken;
 }
 
-const authMethod = (req: Request & { user?: UserToken }, res: Response, next: NextFunction): void => {
+const authMethod = (req: Request, res: Response, next: NextFunction): void => {
     const token = req.headers.authorization;
 
     if (!token) {
@@ -27,8 +27,7 @@ const authMethod = (req: Request & { user?: UserToken }, res: Response, next: Ne
 
     try {
         const decoded = jwt.verify(token.split(' ')[1], secretKey) as UserToken;
-        req.user = decoded;
-        console.log({ DecodedToken: decoded });
+        req.body.token = decoded;
         return next(); // Proceed to the next middleware or route handler
     } catch (err) {
         res.status(401).json({ message: 'Unauthorized: Invalid Token' });

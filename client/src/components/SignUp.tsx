@@ -5,10 +5,17 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import AuthService from "../utils/auth";
+import { useCurrentUser } from "../utils/context";
 import { fetchSignUp, fetchLogin } from "../api/userAPI.js";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const currentUserContext = useCurrentUser();
+  if (!currentUserContext) {
+    throw new Error("useCurrentUser must be used within a UserProvider");
+  }
+  const { setCurrentUser } = currentUserContext;
+
   const [signUpInfo, setSignUpInfo] = useState({
     email: "",
     username: "",
@@ -39,7 +46,7 @@ const SignUp = () => {
         setErrorMessage(tokenData.error);
         return;
       }
-      AuthService.login(tokenData.token);
+      AuthService.login(tokenData.token, setCurrentUser);
       navigate("/");
     } catch (error: unknown) {
       setErrorMessage((error as Error).message);

@@ -7,6 +7,7 @@ import NotebookTabs from './NotebookTabs';
 import NotebookContent from './NotebookContent';
 import { fetchUserData } from '../api/userAPI';
 import { User, Notebook } from '../models/dataModels';
+import AuthService from '../utils/auth';
 
 
 const NotebookComponent = () => {
@@ -15,7 +16,7 @@ const NotebookComponent = () => {
     const [error, setError] = useState<string | null>(null);
 
     const fetchData = useCallback(async () => {
-        const token = localStorage.getItem('token');
+        const token = AuthService.getToken();
         if (token) {
             const fetchedData = await fetchUserData(token);
             if (!fetchedData.data.Notebooks) {

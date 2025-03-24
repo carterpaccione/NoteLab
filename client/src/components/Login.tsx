@@ -3,12 +3,18 @@ import { useNavigate } from "react-router-dom";
 
 import { fetchLogin } from '../api/userAPI.js';
 import AuthService from '../utils/auth.js';
+import { useCurrentUser } from '../utils/context.js';
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 const Login = () => {
   const navigate = useNavigate();
+  const currentUserContext = useCurrentUser();
+  if (!currentUserContext) {
+    throw new Error("useCurrentUser must be used within a UserProvider");
+  }
+  const { setCurrentUser } = currentUserContext;
 
   const [loginInfo, setLoginInfo] = useState({
     username: "",
@@ -37,7 +43,7 @@ const Login = () => {
         setErrorMessage(tokenData.error);
         return;
       }
-      AuthService.login(tokenData.token);
+      AuthService.login(tokenData.token, setCurrentUser);
       navigate("/");
     } catch (error) {
       setErrorMessage("Error loggin in :" + error);

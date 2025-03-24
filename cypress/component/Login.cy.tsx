@@ -2,11 +2,15 @@ import { MemoryRouter } from 'react-router-dom';
 import '../support/commands';
 import Login from '../../client/src/components/Login';
 
+import { CurrentUserContext } from '../../client/src/utils/context';
+
 describe('<Login/>', () => {
     beforeEach(() => {
         cy.mount(
             <MemoryRouter>
-                <Login />
+                <CurrentUserContext.Provider value={{ currentUser: null, setCurrentUser: () => { } }}>
+                    <Login />
+                </CurrentUserContext.Provider>
             </MemoryRouter>
         )
     });

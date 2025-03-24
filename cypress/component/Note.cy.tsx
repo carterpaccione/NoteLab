@@ -1,7 +1,17 @@
 import { MemoryRouter } from 'react-router-dom';
 import '../support/commands';
+
 import NoteComponent from '../../client/src/components/NoteComponent';
 import { Note, Importance_Level } from '../../client/src/models/dataModels';
+
+import { CurrentUserContext } from '../../client/src/utils/context';
+
+const mockUserToken = {
+    username: 'testuser',
+    id: 1,
+    iat: 1629780000,
+    exp: 1629780000
+}
 
 describe('<NoteComponent/>', () => {
     let notesData: Note[];
@@ -77,6 +87,7 @@ describe('<NoteComponent/>', () => {
     context('CRUD Operations', () => {
         beforeEach(() => {
             cy.intercept('PUT', '/api/notes/1', (req) => {
+                
                 if (req.body.content) {
                     notesData[0].content = req.body.content;
                 }
@@ -91,13 +102,17 @@ describe('<NoteComponent/>', () => {
             const mockHandleRefetch = () => {
                 cy.mount(
                     <MemoryRouter>
-                        <NoteComponent note={notesData[0]} handleRefetch={mockHandleRefetch} />
+                        <CurrentUserContext.Provider value={{ currentUser: mockUserToken, setCurrentUser: mockHandleRefetch }}>
+                            <NoteComponent note={notesData[0]} handleRefetch={mockHandleRefetch} />
+                        </CurrentUserContext.Provider>
                     </MemoryRouter>
                 )
             }
             cy.mount(
                 <MemoryRouter>
-                    <NoteComponent note={notesData[0]} handleRefetch={mockHandleRefetch} />
+                    <CurrentUserContext.Provider value={{ currentUser: mockUserToken, setCurrentUser: mockHandleRefetch }}>
+                        <NoteComponent note={notesData[0]} handleRefetch={mockHandleRefetch} />
+                    </CurrentUserContext.Provider>
                 </MemoryRouter>
             )
             cy.get('[data-cy="edit-note-button"]').should('exist').click();
