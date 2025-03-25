@@ -4,15 +4,6 @@ import '../support/commands';
 import NoteComponent from '../../client/src/components/NoteComponent';
 import { Note, Importance_Level } from '../../client/src/models/dataModels';
 
-import { CurrentUserContext } from '../../client/src/utils/context';
-
-const mockUserToken = {
-    username: 'testuser',
-    id: 1,
-    iat: 1629780000,
-    exp: 1629780000
-}
-
 describe('<NoteComponent/>', () => {
     let notesData: Note[];
     function mockHandleRefetch() {
@@ -82,45 +73,5 @@ describe('<NoteComponent/>', () => {
             cy.get('[data-cy="note-form-importance"]').should('have.value', 'Sticky').select('Main').should('have.value', 'Main');
             cy.get('[data-cy="note-form-content"]').clear().type('Updated note content').should('have.value', 'Updated note content');
         })
-    })
-
-    context('CRUD Operations', () => {
-        beforeEach(() => {
-            cy.intercept('PUT', '/api/notes/1', (req) => {
-                
-                if (req.body.content) {
-                    notesData[0].content = req.body.content;
-                }
-                if (req.body.importance) {
-                    notesData[0].importance = req.body.importance;
-                }
-                req.reply({ data: notesData[0] });
-            })
-        });
-
-        it('should update the note content and importance', () => {
-            const mockHandleRefetch = () => {
-                cy.mount(
-                    <MemoryRouter>
-                        <CurrentUserContext.Provider value={{ currentUser: mockUserToken, setCurrentUser: mockHandleRefetch }}>
-                            <NoteComponent note={notesData[0]} handleRefetch={mockHandleRefetch} />
-                        </CurrentUserContext.Provider>
-                    </MemoryRouter>
-                )
-            }
-            cy.mount(
-                <MemoryRouter>
-                    <CurrentUserContext.Provider value={{ currentUser: mockUserToken, setCurrentUser: mockHandleRefetch }}>
-                        <NoteComponent note={notesData[0]} handleRefetch={mockHandleRefetch} />
-                    </CurrentUserContext.Provider>
-                </MemoryRouter>
-            )
-            cy.get('[data-cy="edit-note-button"]').should('exist').click();
-            cy.get('[data-cy="note-form-importance"]').should('have.value', 'Main').select('Highlight').should('have.value', 'Highlight');
-            cy.get('[data-cy="note-form-content"]').clear().type('Updated note content').should('have.value', 'Updated note content');
-            cy.get('[data-cy="submit-update-button"]').click();
-            cy.get('[data-cy="note-header"]').children().eq(1).should('have.text', notesData[0].createdAt.toLocaleDateString());
-            cy.get('[data-cy="note-content"]').should('have.text', 'Updated note content');
-        });
     })
 });

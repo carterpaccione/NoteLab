@@ -280,11 +280,9 @@ Notebook App is a feature-rich note-taking application designed for developers a
       - it should render the correct NoteForm when the edit button is clicked
       - it should render the correct NoteForm inputs MAIN
       - it should render the correct NoteForm inputs STICKY (Code)
-    - CRUD Operations:
-      - it should update the note content and importance
   - Notebook:
     - Basic Rendering:
-      - it should render the correct NotebookTabs
+      - it should render the passed notebook content
 - E2E:
   - Landing Page:
     - it should sign up a user

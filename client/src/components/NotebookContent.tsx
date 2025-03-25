@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 
 import "../styles/notebookpage.css";
 
+import AuthService from '../utils/auth.js';
 import { Notebook, Note } from "../models/dataModels.js";
 import { deleteNotebook, fetchNotebook } from "../api/notebookAPI";
 import NoteComponent from "./NoteComponent";
@@ -20,7 +21,7 @@ export interface PageProps {
 }
 
 const NotebookContent = (props: PageProps) => {
-    const token = localStorage.getItem('token');
+    const token = AuthService.getToken();
 
     const [notebookData, setNotebookData] = useState<Notebook | null>(null);
     const [mainNotes, setMainNotes] = useState<Note[]>([]);

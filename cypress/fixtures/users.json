@@ -1,9 +1,9 @@
 {
     "id": 1,
     "username": "Test_User",
-    "password": "Test_Password",
     "email": "TestUser@test.com",
-    "created_at": "x",
+    "createdAt": "x",
+    "updatedAt": "x",
     "Notebooks": [
         {
             "id": 1,

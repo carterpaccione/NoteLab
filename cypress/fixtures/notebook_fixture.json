@@ -1,0 +1,27 @@
+{
+    "id": 187,
+    "title": "test",
+    "user_id": 1,
+    "createdAt": "2025-03-25T19:02:50.812Z",
+    "updatedAt": "2025-03-25T19:02:50.812Z",
+    "Notes": [
+        {
+            "id": 143,
+            "content": "test",
+            "importance": "Main",
+            "createdAt": "2025-03-25T19:18:40.562Z"
+        },
+        {
+            "id": 144,
+            "content": "Test highlight",
+            "importance": "Highlight",
+            "createdAt": "2025-03-25T19:18:47.374Z"
+        },
+        {
+            "id": 145,
+            "content": "function test(a, b) {\n   return a + b;\t\t\t\t\n}",
+            "importance": "Sticky",
+            "createdAt": "2025-03-25T19:19:24.152Z"
+        }
+    ]
+}
