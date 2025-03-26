@@ -38,6 +38,7 @@ const Login = () => {
       return;
     }
     try {
+      setErrorMessage('Loading...')
       const tokenData = await fetchLogin(loginInfo.username, loginInfo.password);
       if (tokenData.error) {
         setErrorMessage(tokenData.error);
