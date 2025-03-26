@@ -11,6 +11,8 @@
     align-items: center;
     margin-bottom: 10px;
     text-align: center;
+
+    color: black;
 }
 
 
@@ -43,6 +45,10 @@
         white-space: pre-wrap;
         word-wrap: keep-all;
         overflow-wrap: anywhere;
+    }
+
+    & #note-header {
+        color: white;
     }
 }
 

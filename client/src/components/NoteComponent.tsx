@@ -147,7 +147,7 @@ const NoteComponent = (props: NoteProps) => {
                     </Button>
                 </Col>
                 <Col>
-                    <p style={{ color: 'black' }}>{new Date(props.note.createdAt).toLocaleDateString()}</p>
+                    <p>{new Date(props.note.createdAt).toLocaleDateString()}</p>
                 </Col>
                 <Col>
                     <Button
