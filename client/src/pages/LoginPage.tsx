@@ -24,12 +24,11 @@ const LoginPage = () => {
         <Container id='login-page-container'>
             <Row>
                 <Col id='login-page-banner' >
-                    <Row  className='login-page-row'>
+                    <Row className='login-page-row'>
                         <Col>
-                            <h1 id='login-page-title'>Welcome to the Notebook App!</h1>
+                            <h1 id='login-page-title'>Welcome to NoteLab!</h1>
                             <h2>
-                                This app is a simple notebook application that allows you to create, read, update, and delete notes.
-                                You can also create, read, update, and delete notebooks to organize your notes.
+                                Write, organize, and revisit your notes effortlessly. With AI-powered insights, studying just got easier.
                             </h2>
                         </Col>
                     </Row>

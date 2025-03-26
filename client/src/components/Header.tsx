@@ -20,7 +20,7 @@ const Header = () => {
   
   return (
     <Navbar id="header-container">
-      <Navbar.Brand href="/" id="nav-title" title="Home">Notebook</Navbar.Brand>
+      <Navbar.Brand href="/" id="nav-title" title="Home">NoteLab</Navbar.Brand>
       <Nav>
         {currentUser ? (
           <Nav.Link id="nav-logout" title="Logout" onClick={handleLogout}>Logout</Nav.Link>
