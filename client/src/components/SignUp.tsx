@@ -40,6 +40,7 @@ const SignUp = () => {
       return;
     }
     try {
+      setErrorMessage("Loading...");
       await fetchSignUp(signUpInfo.email, signUpInfo.username, signUpInfo.password);
       const tokenData = await fetchLogin(signUpInfo.username, signUpInfo.password);
       if (tokenData.error) {
@@ -48,8 +49,8 @@ const SignUp = () => {
       }
       AuthService.login(tokenData.token, setCurrentUser);
       navigate("/");
-    } catch (error: unknown) {
-      setErrorMessage((error as Error).message);
+    } catch (error) {
+      setErrorMessage(`Error Signing Up: ${error}`);
     }
   };
 

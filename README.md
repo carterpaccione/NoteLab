@@ -1,8 +1,16 @@
-# <center>Notebook App   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)</center>
+# <center>NoteLab   [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)</center>
 
 ## Description
 
-Notebook App is a feature-rich note-taking application designed for developers and students. It allows users to organize notes into Notebooks, categorize them with importance levels, and leverage an AI-powered assistant for coding-related queries.
+NoteLab is a feature-rich note-taking application designed for developers and students. It allows users to organize notes into Notebooks, categorize them with importance levels, and leverage an AI-powered assistant for coding-related queries.
+
+## Screenshots
+
+<a href="https://drive.google.com/uc?export=view&id=1Xy4Bievxx6b9DAbOXCI3-46hbzBv4CnR"><img src="https://drive.google.com/uc?export=view&id=1Xy4Bievxx6b9DAbOXCI3-46hbzBv4CnR" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
+
+<a href="https://drive.google.com/uc?export=view&id=1ewwx_ZFZlewVfOLKMPTuVq51yLyEROIb"><img src="https://drive.google.com/uc?export=view&id=1ewwx_ZFZlewVfOLKMPTuVq51yLyEROIb" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
+
+<a href="https://drive.google.com/uc?export=view&id=1qeuxssXgQatTrF-RjUFja-GohX-GR5dS"><img src="https://drive.google.com/uc?export=view&id=1qeuxssXgQatTrF-RjUFja-GohX-GR5dS" style="width: 650px; max-width: 100%; height: auto" title="Click to enlarge picture" />
 
 ## Table of Contents
 
@@ -21,7 +29,7 @@ Notebook App is a feature-rich note-taking application designed for developers a
 - Local Usage:
   - Set necessary environment variables, npm install, npm run start.
 - Deployed Application:
-    - TBD
+    - https://notelab.onrender.com/
 
 ## Features
 
@@ -34,7 +42,7 @@ Notebook App is a feature-rich note-taking application designed for developers a
   - Categorize notes using three statuses:
     - Main - Core ideas or key points.
     - Highlight - Important snippets or insights.
-    - Code: Code snippets or technical details.
+    - Code - Code snippets or technical details.
   - Edit note content and update status.
   - Delete notes when no longer needed.
 - AI-Powered Assistant:
