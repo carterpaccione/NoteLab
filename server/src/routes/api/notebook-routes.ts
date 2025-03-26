@@ -44,6 +44,9 @@ router.post('/', async (req: Request, res: Response) => {
     if (!reqUser) {
         return res.status(401).json({ message: 'Not Logged In' });
     }
+    if (req.body.title.trim().length < 1) {
+        return res.status(204).json({ message: `Title: ${req.body.title} not accepted`})
+    }
     try {
         const notebook = await Notebook.create({
             title: req.body.title,
