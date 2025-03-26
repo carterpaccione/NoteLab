@@ -22,6 +22,10 @@
     & pre {
         color: black;
         font-family: 'Outfit-VariableFont';
+
+        white-space: pre-wrap;
+        word-wrap: keep-all;
+        overflow-wrap: anywhere;
     }
 }
 
@@ -35,6 +39,10 @@
     & pre {
         color: white !important;
         font-family: 'Outfit-VariableFont';
+
+        white-space: pre-wrap;
+        word-wrap: keep-all;
+        overflow-wrap: anywhere;
     }
 }
 
