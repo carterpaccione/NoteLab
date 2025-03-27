@@ -35,22 +35,35 @@ const SignUp = () => {
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage("Loading...");
+
     if (signUpInfo.password !== signUpInfo.confirmPassword) {
       setErrorMessage("Passwords do not match");
       return;
     }
+
     try {
-      setErrorMessage("Loading...");
-      await fetchSignUp(signUpInfo.email, signUpInfo.username, signUpInfo.password);
+      const signUpResponse = await fetchSignUp(signUpInfo.email, signUpInfo.username, signUpInfo.password);
+      if (!signUpResponse || signUpResponse.error) {
+        setErrorMessage(signUpResponse?.error || "Error Signing Up")
+        return;
+      }
+
       const tokenData = await fetchLogin(signUpInfo.username, signUpInfo.password);
       if (tokenData.error) {
         setErrorMessage(tokenData.error);
         return;
       }
+
       AuthService.login(tokenData.token, setCurrentUser);
       navigate("/");
     } catch (error) {
-      setErrorMessage(`Error Signing Up: ${error}`);
+      if (error instanceof Error) {
+        setErrorMessage(`Error Signing Up: ${error.message}`);
+      } else {
+        setErrorMessage("An unknown error occurred during sign up.");
+      }
+      return;
     }
   };
 
@@ -104,7 +117,7 @@ const SignUp = () => {
         data-cy="signup-submit"
         type="submit"
         title="Submit"
-        >
+      >
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M268-240 42-466l57-56 170 170 56 56-57 56Zm226 0L268-466l56-57 170 170 368-368 56 57-424 424Zm0-226-57-56 198-198 57 56-198 198Z" /></svg>
       </Button>
     </Form>
