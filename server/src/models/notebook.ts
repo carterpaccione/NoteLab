@@ -26,6 +26,8 @@ export function NotebookFactory(sequelize: Sequelize): typeof Notebook {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
                 primaryKey: true,
+                allowNull: false,
+                unique: true,
             },
             title: {
                 type: DataTypes.STRING,

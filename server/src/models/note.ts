@@ -34,6 +34,8 @@ export function NoteFactory(sequelize: Sequelize): typeof Note {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
                 primaryKey: true,
+                allowNull: false,
+                unique: true,
             },
             content: {
                 type: DataTypes.TEXT,

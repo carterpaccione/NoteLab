@@ -30,6 +30,8 @@ export function UserFactory(sequelize: Sequelize): typeof User {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+        allowNull: false,
+        unique: true,
       },
       username: {
         type: DataTypes.STRING,
@@ -39,6 +41,7 @@ export function UserFactory(sequelize: Sequelize): typeof User {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       password: {
         type: DataTypes.STRING,

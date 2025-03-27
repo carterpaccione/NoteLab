@@ -40,6 +40,19 @@ router.post('/login', async (req: Request, res: Response) => {
 router.post('/register', async (req: Request, res: Response) => {
     console.log("POST /api/users");
     console.log("Request body: ", req.body);
+
+    const existingUsername = await User.findOne({ where: { username: req.body.username }})
+    if (existingUsername) {
+        console.log("Username already in use")
+        return res.status(400).json({ message: 'Username already in use'})
+    }
+
+    const existingEmail = await User.findOne({ where: { email: req.body.email }})
+    if (existingEmail) {
+        console.log("Email in Use")
+        return res.status(400).json({ message: 'Email already in use'})
+    }
+
     try {
         const user = await User.create({
             email: req.body.email,
@@ -49,7 +62,7 @@ router.post('/register', async (req: Request, res: Response) => {
         return res.status(201).json({ message: "User Created", user_id: user.id });
     } catch (err) {
         return res.status(400).json({
-            message: (err as Error).message
+            message: "Error Signing Up"
         });
     }
 })
